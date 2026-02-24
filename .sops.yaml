@@ -1,0 +1,32 @@
+keys:
+  - &owtest age15pq2v9dy4jl05spu9v87a9mqtz87uvx6h2svuax2hh76e4zdna4s7ayjan # Added 2025-09-25
+  - &agow age1xy6hevtwpq84wrfaqtn80rv3fmzst50jq6e4km432zznqyf2eszsj5mq58 # Added manually
+  - &vaio age13pygxxvd0gvf3h0m0llhdcl9sx3c9lsnwh74xt2gknva3rzegpmsy54lrx # Added 2025-09-17
+  - &hetz age18k0j43xy2gl3vxdw4039u0lzju65sxy0tnk3hgk7md8dxp3txa9sds8dah
+  - &phow age13xg72atrj6merzcvtygyte94jynlg4ca6v84kz87xq44w6y9546sde8kms # phobobhobia wsl2
+  - &pve age1yxjv6ndexz9t7x2qs8q8ta6cnvwjr792p8gsnw6mqfxzgkmn63rsy8hzed # Added 2024-12-19
+  - &nixarr-sp age1xscyzd885vke5vy7fdcjezsnky6902uwvpudl3tekrc92fnfyg7qrfheg6 # Added 2024-12-13
+  - &oracle-arm64 age1jndhu0tqy3rtqsjynxudjhsx8l5dqylszxxgc6dz54dzteg6g40qa686mx
+  - &syn age14pn7pxnzykwtjcyqqps3w2d0lpvjgcqmmsk9wnj5rladjpqeqdtsyjf4hm
+  - &nix-sp age1c74jm66n9cxhq3z8zezaupmzxmqjy7hhx5ylt7d5xrxg8m4v8prqsax4s2
+  - &ago age1l3zfggeufqcz77akn06reaw2rpe29ghxnlj6pnzg7q7yr02xc54spp3tvr
+  - &spino age1u7xts375ca822ampy29y7shky4cjd3entu9gxwqq7wfn4zdvg9usfnlgvs
+  - &lxc age1q3a7c382czvkqvq2aypfjqqrurudd6lz4qsw6c02fqkf0zpn0ynq4zhx3d
+
+creation_rules:
+  - path_regex: (.*\.(yaml|json|env)|(lxc|hosts)/.*\.yaml)$
+    key_groups:
+      - age:
+          - *owtest
+          - *agow
+          - *vaio
+          - *hetz
+          - *phow
+          - *pve
+          - *nixarr-sp
+          - *oracle-arm64
+          - *syn
+          - *nix-sp
+          - *ago
+          - *spino
+          - *lxc

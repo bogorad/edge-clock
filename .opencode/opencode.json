@@ -1,0 +1,24 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "read": {
+      "~/git/gsd-test/.opencode/get-shit-done/*": "allow"
+    },
+    "external_directory": {
+      "~/git/gsd-test/.opencode/get-shit-done/*": "allow"
+    }
+  },
+  "mcp": {
+    "serena": {
+      "enabled": true,
+      "type": "local",
+      "command": [
+        "nix",
+        "run",
+        "github:oraios/serena",
+        "--",
+        "start-mcp-server"
+      ]
+    }
+  }
+}

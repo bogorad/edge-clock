@@ -1,0 +1,17 @@
+name = "clock"
+main = "src/worker.mjs"
+compatibility_date = "2026-01-31"
+workers_dev = false
+
+[[routes]]
+pattern = "clock.abc-p.com/*"
+zone_name = "abc-p.com"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = true
+
+[build]
+command = "pnpm run build:wasm"
+watch_dir = ["src", "public", "rust/clock-wasm/src", "rust/clock-wasm/Cargo.toml"]

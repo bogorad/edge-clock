@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Edge Clock</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/sse.js"></script>
+    <script src="/static/timezone-bootstrap.js"></script>
+  </head>
+  <body>
+    <div id="page-root" data-theme="{{theme}}">
+      <div class="ambient ambient-left" aria-hidden="true"></div>
+      <div class="ambient ambient-right" aria-hidden="true"></div>
+
+      <main class="shell">
+        <header class="header">
+          <p class="label">Current Local Time</p>
+          <h1>Edge Clock</h1>
+          <p class="subtitle">Server-rendered Rust/WASM clock over HTMX + SSE.</p>
+        </header>
+
+        <section class="toolbar">
+          <form
+            class="theme-form"
+            method="post"
+            action="/theme?theme={{theme_toggle_target}}"
+            hx-post="/theme?theme={{theme_toggle_target}}"
+            hx-target="#page-root"
+            hx-select="#page-root"
+            hx-swap="outerHTML transition:true"
+            hx-push-url="false"
+            hx-sync="this:replace"
+          >
+            <button class="theme-toggle" type="submit">{{theme_toggle_label}}</button>
+          </form>
+        </section>
+
+        <section
+          id="clock-panel"
+          class="clock-panel"
+          hx-ext="sse"
+          sse-connect="/clock-stream"
+          sse-swap="clock"
+          hx-preserve
+        >
+          {{{clock_element}}}
+        </section>
+
+        <footer class="footer">
+          <p>
+            <a href="https://github.com/bogorad/edge-clock">Powered by</a> Rust/WASM on server
+            + HTMX/SSE transport
+          </p>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>
