@@ -1,11 +1,9 @@
-node_modules/
+.beads/export-state/
+.bv/
 .direnv/
-rust/clock-wasm/target/
-rust/clock-wasm/pkg/
 .serena/
 .wrangler/
-
-# bv (beads viewer) local config and caches
-.bv/
-.beads/export-state/
+node_modules/
+rust/clock-wasm/pkg/
+rust/clock-wasm/target/
 

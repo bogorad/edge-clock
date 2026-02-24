@@ -21,6 +21,8 @@
             lld # WASM linker
             nodejs_24 # Node.js
             pnpm # Package manager
+            rustc # Rust compiler
+            wasm-pack # WASM packager
             wrangler # Cloudflare worker
             zsh # Shell
           ];

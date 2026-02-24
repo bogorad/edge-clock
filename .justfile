@@ -24,12 +24,28 @@ test:
 dev port="3000":
   wrangler dev --local --live-reload --show-interactive-dev-session=true --port {{port}}
 
+# Verify just dev process starts and binds port within timeout seconds
+verify-dev-start port="5656" timeout="8":
+  @if ss -ltn "( sport = :{{port}} )" | rg -q LISTEN; then echo "Port {{port}} is already in use; refusing to start dev-start check."; exit 1; fi
+  @log=$(mktemp); \
+  just dev {{port}} >"$log" 2>&1 & pid=$!; \
+  cleanup() { if kill -0 "$pid" 2>/dev/null; then kill "$pid"; wait "$pid" 2>/dev/null || true; fi; rm -f "$log"; }; \
+  trap cleanup EXIT; \
+  ready=0; \
+  for i in $(seq 1 {{timeout}}); do \
+    if ss -ltn "( sport = :{{port}} )" | rg -q LISTEN; then ready=1; break; fi; \
+    if ! kill -0 "$pid" 2>/dev/null; then echo "just dev exited before readiness on :{{port}}"; cat "$log"; exit 1; fi; \
+    sleep 1; \
+  done; \
+  if [ "$ready" -ne 1 ]; then echo "Timed out waiting {{timeout}}s for just dev to bind :{{port}}"; cat "$log"; exit 1; fi
+
 # Run automated live local worker checks (starts/stops port 5656 server)
 test-live port="5656":
+  @just verify-dev-start {{port}} 8
   @if ss -ltn "( sport = :{{port}} )" | rg -q LISTEN; then echo "Port {{port}} is already in use; refusing to start test-live server."; exit 1; fi
   @log=$(mktemp); \
   wrangler dev --local --live-reload --show-interactive-dev-session=true --port {{port}} >"$log" 2>&1 & pid=$!; \
-  cleanup() { if kill -0 "$pid" 2>/dev/null; then kill "$pid"; fi; rm -f "$log"; }; \
+  cleanup() { if kill -0 "$pid" 2>/dev/null; then kill "$pid"; wait "$pid" 2>/dev/null || true; fi; rm -f "$log"; }; \
   trap cleanup EXIT; \
   ready=0; \
   for i in $(seq 1 90); do \
@@ -75,6 +91,13 @@ verify-worker-flows port="5656":
   curl -sS -D "$tmp/get-theme.headers" -o "$tmp/get-theme.body" "http://127.0.0.1:{{port}}/theme?theme=dark"; \
   rg -qi '^HTTP/[0-9.]+ 404' "$tmp/get-theme.headers"; \
   rg -q '^Not Found$' "$tmp/get-theme.body"; \
+  curl -sS -D "$tmp/static.headers" -o "$tmp/static.body" "http://127.0.0.1:{{port}}/static/styles.css"; \
+  rg -qi '^HTTP/[0-9.]+ 200' "$tmp/static.headers"; \
+  rg -qi '^content-type: text/css' "$tmp/static.headers"; \
+  rg -q 'clock-panel' "$tmp/static.body"; \
+  curl -sS -D "$tmp/static-missing.headers" -o "$tmp/static-missing.body" "http://127.0.0.1:{{port}}/static/not-a-real-file.css"; \
+  rg -qi '^HTTP/[0-9.]+ 404' "$tmp/static-missing.headers"; \
+  rg -q '^Not Found$' "$tmp/static-missing.body"; \
   curl -sS -D "$tmp/tz.headers" -o /dev/null "http://127.0.0.1:{{port}}/?tz=%20Asia%2FTokyo%20"; \
   rg -qi '^set-cookie: clock_tz=Asia%2FTokyo' "$tmp/tz.headers"; \
   curl -sS -D "$tmp/tz-invalid.headers" -o /dev/null "http://127.0.0.1:{{port}}/?tz=Mars%2FOlympus"; \

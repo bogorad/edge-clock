@@ -1,7 +1,11 @@
 use chrono::{DateTime, NaiveTime, Timelike, Utc};
 use chrono_tz::Tz;
+use cookie::time::Duration;
+use cookie::{Cookie, SameSite};
 use handlebars::Handlebars;
+use percent_encoding::{AsciiSet, CONTROLS, percent_decode_str, utf8_percent_encode};
 use serde::Serialize;
+use url::form_urlencoded;
 use wasm_bindgen::prelude::*;
 
 const INVALID_RESULT: u64 = 0;
@@ -20,6 +24,31 @@ const THEME_DARK: &str = "dark";
 const HOME_TEMPLATE: &str = include_str!("../../../public/index.html");
 const REQUEST_CONTEXT_ERROR_JSON: &str = r#"{"session_time_zone":null,"supplied_time_zone":null,"session_theme":"light","requested_theme":null,"should_set_time_zone_cookie":false,"should_set_theme_cookie":false,"once":false,"hx":false}"#;
 const HTTP_PLAN_ERROR_JSON: &str = r#"{"route":0,"status":500,"body":"serialization error","content_type":"text/plain; charset=utf-8","location":null,"set_cookies":[],"session_time_zone":null,"once":false}"#;
+const URI_COMPONENT_ENCODE_SET: &AsciiSet = &CONTROLS
+    .add(b' ')
+    .add(b'"')
+    .add(b'#')
+    .add(b'$')
+    .add(b'%')
+    .add(b'&')
+    .add(b'+')
+    .add(b',')
+    .add(b'/')
+    .add(b':')
+    .add(b';')
+    .add(b'<')
+    .add(b'=')
+    .add(b'>')
+    .add(b'?')
+    .add(b'@')
+    .add(b'[')
+    .add(b'\\')
+    .add(b']')
+    .add(b'^')
+    .add(b'`')
+    .add(b'{')
+    .add(b'|')
+    .add(b'}');
 
 #[derive(Serialize)]
 struct HomeTemplateContext<'a> {
@@ -298,12 +327,12 @@ fn parse_query_param_values(query: &str) -> (Option<String>, Option<String>, Opt
             continue;
         }
 
-        let (key, value) = match entry.split_once('=') {
+        let (key, raw_value) = match entry.split_once('=') {
             Some((raw_key, raw_value)) => (raw_key, raw_value),
             None => (entry, ""),
         };
 
-        let decoded_value = decode_percent_component(value);
+        let decoded_value = decode_query_value(raw_value);
 
         match key {
             "tz" => time_zone = decoded_value,
@@ -316,56 +345,81 @@ fn parse_query_param_values(query: &str) -> (Option<String>, Option<String>, Opt
     (time_zone, theme, once)
 }
 
-fn from_hex_digit(value: u8) -> Option<u8> {
-    match value {
-        b'0'..=b'9' => Some(value - b'0'),
-        b'a'..=b'f' => Some(value - b'a' + 10),
-        b'A'..=b'F' => Some(value - b'A' + 10),
-        _ => None,
-    }
-}
-
-fn decode_percent_component(value: &str) -> Option<String> {
+fn has_invalid_percent_encoding(value: &str) -> bool {
     let bytes = value.as_bytes();
     let mut index = 0;
-    let mut decoded = Vec::with_capacity(bytes.len());
 
     while index < bytes.len() {
-        if bytes[index] == b'%' {
-            if index + 2 >= bytes.len() {
-                return None;
-            }
-
-            let high = from_hex_digit(bytes[index + 1])?;
-            let low = from_hex_digit(bytes[index + 2])?;
-            decoded.push((high << 4) | low);
-            index += 3;
+        if bytes[index] != b'%' {
+            index += 1;
             continue;
         }
 
-        decoded.push(bytes[index]);
-        index += 1;
+        if index + 2 >= bytes.len()
+            || !bytes[index + 1].is_ascii_hexdigit()
+            || !bytes[index + 2].is_ascii_hexdigit()
+        {
+            return true;
+        }
+
+        index += 3;
     }
 
-    String::from_utf8(decoded).ok()
+    false
+}
+
+fn decode_query_value(raw_value: &str) -> Option<String> {
+    if has_invalid_percent_encoding(raw_value) {
+        return None;
+    }
+
+    let mut encoded_value = String::with_capacity(raw_value.len() + 2);
+    encoded_value.push_str("v=");
+    for character in raw_value.chars() {
+        if character == '+' {
+            encoded_value.push_str("%2B");
+        } else {
+            encoded_value.push(character);
+        }
+    }
+
+    let value_part = &encoded_value[2..];
+    if percent_decode_str(value_part).decode_utf8().is_err() {
+        return None;
+    }
+
+    form_urlencoded::parse(encoded_value.as_bytes())
+        .next()
+        .map(|(_, value)| value.into_owned())
+}
+
+fn decode_percent_component(value: &str) -> Option<String> {
+    if has_invalid_percent_encoding(value) {
+        return None;
+    }
+
+    percent_decode_str(value)
+        .decode_utf8()
+        .ok()
+        .map(|decoded| decoded.into_owned())
 }
 
 fn parse_cookie_values(cookie_header: &str) -> (Option<String>, Option<String>) {
     let mut time_zone = None;
     let mut theme = None;
 
-    for cookie in cookie_header.split(';') {
-        let (raw_name, raw_value) = match cookie.split_once('=') {
-            Some(parts) => parts,
-            None => continue,
+    for parsed_cookie in Cookie::split_parse(cookie_header) {
+        let cookie = match parsed_cookie {
+            Ok(cookie) => cookie,
+            Err(_) => continue,
         };
 
-        match raw_name.trim() {
-            "clock_tz" => {
-                time_zone = decode_percent_component(raw_value);
+        match cookie.name() {
+            TIMEZONE_COOKIE_NAME => {
+                time_zone = decode_percent_component(cookie.value());
             }
-            "clock_theme" => {
-                theme = decode_percent_component(raw_value);
+            THEME_COOKIE_NAME => {
+                theme = decode_percent_component(cookie.value());
             }
             _ => {}
         }
@@ -424,54 +478,30 @@ fn resolve_request_context_values(
     }
 }
 
-fn is_uri_component_unescaped(byte: u8) -> bool {
-    matches!(
-        byte,
-        b'A'..=b'Z'
-            | b'a'..=b'z'
-            | b'0'..=b'9'
-            | b'-'
-            | b'_'
-            | b'.'
-            | b'!'
-            | b'~'
-            | b'*'
-            | b'\''
-            | b'('
-            | b')'
-    )
+fn encode_uri_component(value: &str) -> String {
+    utf8_percent_encode(value, URI_COMPONENT_ENCODE_SET).to_string()
 }
 
-fn encode_uri_component(value: &str) -> String {
-    let mut encoded = String::with_capacity(value.len());
+fn format_cookie(name: &str, value: &str) -> String {
+    let mut cookie = Cookie::new(name.to_string(), encode_uri_component(value));
+    cookie.set_path("/");
+    cookie.set_max_age(Duration::seconds(i64::from(COOKIE_MAX_AGE_SECONDS)));
+    cookie.set_same_site(SameSite::Lax);
 
-    for byte in value.as_bytes() {
-        if is_uri_component_unescaped(*byte) {
-            encoded.push(char::from(*byte));
-        } else {
-            encoded.push_str(format!("%{:02X}", byte).as_str());
-        }
-    }
-
-    encoded
+    format!(
+        "{}={}; Path=/; Max-Age={}; SameSite=Lax",
+        cookie.name(),
+        cookie.value(),
+        COOKIE_MAX_AGE_SECONDS
+    )
 }
 
 fn format_time_zone_cookie(time_zone: &str) -> String {
-    format!(
-        "{}={}; Path=/; Max-Age={}; SameSite=Lax",
-        TIMEZONE_COOKIE_NAME,
-        encode_uri_component(time_zone),
-        COOKIE_MAX_AGE_SECONDS
-    )
+    format_cookie(TIMEZONE_COOKIE_NAME, time_zone)
 }
 
 fn format_theme_cookie(theme: &str) -> String {
-    format!(
-        "{}={}; Path=/; Max-Age={}; SameSite=Lax",
-        THEME_COOKIE_NAME,
-        encode_uri_component(theme),
-        COOKIE_MAX_AGE_SECONDS
-    )
+    format_cookie(THEME_COOKIE_NAME, theme)
 }
 
 fn finalize_cookie_directives(
@@ -691,7 +721,8 @@ pub fn typed_handle_http(
 #[cfg(test)]
 mod tests {
     use super::{
-        format_clock_bytes, format_time_packed, normalize_time_zone_value,
+        decode_percent_component, decode_query_value, format_clock_bytes, format_time_packed,
+        normalize_time_zone_value, parse_query_param_values,
         build_http_response_plan,
         render_clock_sse_event_at_unix_seconds_response, render_clock_sse_event_response,
         render_home_html_at_unix_seconds_response, render_home_html_response, render_not_found_response,
@@ -960,6 +991,22 @@ mod tests {
         assert_eq!(values.session_theme, "dark");
         assert_eq!(values.requested_theme, Some("dark".to_string()));
         assert!(values.once);
+    }
+
+    #[test]
+    fn rust_keeps_plus_literal_in_query_values() {
+        let (time_zone, theme, once) =
+            parse_query_param_values("tz=Asia+Tokyo&theme=da+rk&once=+1");
+
+        assert_eq!(time_zone, Some("Asia+Tokyo".to_string()));
+        assert_eq!(theme, Some("da+rk".to_string()));
+        assert_eq!(once, Some("+1".to_string()));
+    }
+
+    #[test]
+    fn rust_rejects_non_utf8_percent_sequences() {
+        assert_eq!(decode_query_value("%FF"), None);
+        assert_eq!(decode_percent_component("%FF"), None);
     }
 
     #[test]

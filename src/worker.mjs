@@ -1,6 +1,13 @@
+// Import raw bindgen artifacts directly.
+// Why: Worker runtimes may expose the wasm module in different shapes, so we
+// do explicit resolution/init here instead of relying on generated wrapper
+// assumptions.
 import * as wasmModule from "../rust/clock-wasm/pkg/clock_wasm_bg.wasm";
 import * as bindgen from "../rust/clock-wasm/pkg/clock_wasm_bg.js";
 
+// Minimal signature check for a usable wasm-bindgen exports object.
+// Why these symbols: bindgen wrappers need allocator functions to bridge JS
+// strings and buffers across wasm memory.
 function isWasmExports(value) {
   return (
     Boolean(value) &&
@@ -9,6 +16,9 @@ function isWasmExports(value) {
   );
 }
 
+// Normalize any runtime-provided wasm module shape into plain exports.
+// Why: different bundler/runtime combinations can provide direct exports,
+// nested default exports, pre-instantiated modules, or raw WebAssembly.Module.
 function resolveWasmExports(moduleLike) {
   const directExports = [
     moduleLike,
@@ -21,11 +31,9 @@ function resolveWasmExports(moduleLike) {
     return directExports;
   }
 
-  const compiledModule = [
-    moduleLike,
-    moduleLike?.default,
-    moduleLike?.module,
-  ].find((value) => value instanceof WebAssembly.Module);
+  const compiledModule = [moduleLike, moduleLike?.default, moduleLike?.module].find(
+    (value) => value instanceof WebAssembly.Module,
+  );
 
   if (!compiledModule) {
     throw new TypeError("Unable to initialize wasm module exports");
@@ -48,13 +56,24 @@ function resolveWasmExports(moduleLike) {
   return exports;
 }
 
-bindgen.__wbg_set_wasm(resolveWasmExports(wasmModule));
-if (typeof bindgen.__wbindgen_init_externref_table === "function") {
-  bindgen.__wbindgen_init_externref_table();
+// Wire resolved wasm exports into bindgen before any boundary function calls.
+// `__wbindgen_start` is optional; call only when emitted by this build.
+const wasmExports = resolveWasmExports(wasmModule);
+bindgen.__wbg_set_wasm(wasmExports);
+if (typeof wasmExports.__wbindgen_start === "function") {
+  wasmExports.__wbindgen_start();
 }
 
 const { typed_handle_http, typed_render_sse } = bindgen;
 
+// Shared validator for nullable string plan fields coming from Rust JSON.
+function isNullableString(value) {
+  return value === null || typeof value === "string";
+}
+
+// Rust boundary functions currently return JSON strings.
+// Parse errors intentionally collapse to `null` so callers fail closed via
+// payload shape validation and return safe error responses/events.
 function parseJson(text) {
   try {
     return JSON.parse(text);
@@ -63,10 +82,8 @@ function parseJson(text) {
   }
 }
 
-function isNullableString(value) {
-  return value === null || typeof value === "string";
-}
-
+// SSE renderer contract validator.
+// Ensures malformed boundary payloads cannot be streamed as trusted data.
 function isRenderPayload(value) {
   return (
     Boolean(value) &&
@@ -79,6 +96,24 @@ function isRenderPayload(value) {
   );
 }
 
+// Rust uses status=0 as a sentinel for host-handled routes.
+// Keep that sentinel only for stream/static branches; require real HTTP status
+// codes for all other response plans.
+function isValidPlanStatus(route, status) {
+  if (!Number.isInteger(status)) {
+    return false;
+  }
+
+  if (status === 0) {
+    return route === ROUTE_CLOCK_STREAM || route === ROUTE_STATIC_ASSET;
+  }
+
+  return status >= 100 && status <= 599;
+}
+
+// Full planner payload validator.
+// Why: Worker must treat wasm output as untrusted at runtime and reject any
+// malformed shape before constructing platform responses.
 function isHttpPlan(value) {
   return (
     Boolean(value) &&
@@ -86,9 +121,7 @@ function isHttpPlan(value) {
     !Array.isArray(value) &&
     Number.isInteger(value.route) &&
     value.route >= 0 &&
-    Number.isInteger(value.status) &&
-    value.status >= 0 &&
-    value.status <= 599 &&
+    isValidPlanStatus(value.route, value.status) &&
     typeof value.body === "string" &&
     isNullableString(value.content_type) &&
     isNullableString(value.location) &&
@@ -107,6 +140,48 @@ const encoder = new TextEncoder();
 // host can branch into runtime-only behavior (static assets and SSE transport).
 const ROUTE_CLOCK_STREAM = 2;
 const ROUTE_STATIC_ASSET = 3;
+const THEME_COOKIE_NAME = "clock_theme";
+
+// Case-insensitive attribute presence check for Set-Cookie directives.
+function hasCookieAttribute(cookieDirective, attributeName) {
+  const attributePattern = new RegExp(`(?:^|;)\\s*${attributeName}(?:=|;|$)`, "i");
+  return attributePattern.test(cookieDirective);
+}
+
+// Apply host-side cookie hardening without breaking app behavior.
+// - Add Secure in HTTPS contexts.
+// - Add HttpOnly only to theme cookie (timezone cookie must stay readable by
+//   timezone bootstrap script).
+function hardenSetCookieDirective(cookieDirective, { isSecureContext }) {
+  if (typeof cookieDirective !== "string" || cookieDirective.length === 0) {
+    return cookieDirective;
+  }
+
+  const separatorIndex = cookieDirective.indexOf("=");
+  const cookieName = separatorIndex === -1 ? "" : cookieDirective.slice(0, separatorIndex).trim();
+  let hardened = cookieDirective;
+
+  if (isSecureContext && !hasCookieAttribute(hardened, "Secure")) {
+    hardened = `${hardened}; Secure`;
+  }
+
+  if (
+    cookieName === THEME_COOKIE_NAME &&
+    !hasCookieAttribute(hardened, "HttpOnly")
+  ) {
+    hardened = `${hardened}; HttpOnly`;
+  }
+
+  return hardened;
+}
+
+// Emit all planner-provided cookies after host-side hardening.
+function appendPlanCookies(headers, cookies, { isSecureContext }) {
+  for (const cookie of cookies ?? []) {
+    const hardenedCookie = hardenSetCookieDirective(cookie, { isSecureContext });
+    headers.append("set-cookie", hardenedCookie);
+  }
+}
 
 /**
  * Build a Worker Response from a Rust HTTP plan.
@@ -115,7 +190,7 @@ const ROUTE_STATIC_ASSET = 3;
  * - Rust decides status/body/headers/cookies, but only Worker can construct the
  *   actual Response object and append platform headers.
  */
-function responseFromPlan(plan) {
+function responseFromPlan(plan, { isSecureContext }) {
   const headers = new Headers();
 
   // Rust already selects content type when needed; Worker just applies it.
@@ -128,10 +203,8 @@ function responseFromPlan(plan) {
     headers.set("location", plan.location);
   }
 
-  // Rust now formats complete Set-Cookie header values. Worker only emits them.
-  for (const cookie of plan.set_cookies ?? []) {
-    headers.append("set-cookie", cookie);
-  }
+  // Keep clock_tz readable for timezone bootstrap while hardening theme cookie.
+  appendPlanCookies(headers, plan.set_cookies, { isSecureContext });
 
   return new Response(plan.body || null, {
     status: plan.status,
@@ -147,7 +220,7 @@ function responseFromPlan(plan) {
  *   Worker runtime concerns and cannot be performed directly in Rust/WASM.
  * - Rust still owns payload rendering via typed_render_sse.
  */
-function createSseResponse({ once, signal, timeZone, setCookies }) {
+function createSseResponse({ once, signal, timeZone, setCookies, isSecureContext }) {
   let intervalId = null;
 
   const stream = new ReadableStream({
@@ -156,7 +229,8 @@ function createSseResponse({ once, signal, timeZone, setCookies }) {
         // Use host time source for cadence; Rust converts to timezone and formats
         // the payload content.
         const unixSeconds = Math.max(0, Math.floor(Date.now() / 1000));
-        const rendered = parseJson(typed_render_sse(unixSeconds, timeZone ?? ""));
+        const rawRendered = typed_render_sse(unixSeconds, timeZone ?? "");
+        const rendered = parseJson(rawRendered);
         if (!isRenderPayload(rendered)) {
           controller.enqueue(encoder.encode("event: error\ndata: invalid sse payload\n\n"));
           return;
@@ -216,10 +290,8 @@ function createSseResponse({ once, signal, timeZone, setCookies }) {
     connection: "keep-alive",
   });
 
-  // Rust provides cookie directives; host emits them on SSE handshake response.
-  for (const cookie of setCookies ?? []) {
-    headers.append("set-cookie", cookie);
-  }
+  // Rust provides cookie directives; host emits hardened cookies on handshake.
+  appendPlanCookies(headers, setCookies, { isSecureContext });
 
   return new Response(stream, {
     status: 200,
@@ -231,21 +303,21 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const unixSeconds = Math.max(0, Math.floor(Date.now() / 1000));
+    const isSecureContext = url.protocol === "https:";
 
     // Single Rust planner call per request.
     // Rust resolves context, route, status/body, redirect location, content type,
     // cookie directives, session timezone, and once mode.
-    const plan = parseJson(
-      typed_handle_http(
-        request.method,
-        url.pathname,
-        url.search.startsWith("?") ? url.search.slice(1) : url.search,
-        request.headers.get("cookie"),
-        request.headers.get("x-timezone"),
-        request.headers.get("hx-request"),
-        unixSeconds,
-      ),
+    const rawPlan = typed_handle_http(
+      request.method,
+      url.pathname,
+      url.search.startsWith("?") ? url.search.slice(1) : url.search,
+      request.headers.get("cookie"),
+      request.headers.get("x-timezone"),
+      request.headers.get("hx-request"),
+      unixSeconds,
     );
+    const plan = parseJson(rawPlan);
 
     if (!isHttpPlan(plan)) {
       return new Response("Invalid planner payload", {
@@ -283,6 +355,7 @@ export default {
         signal: request.signal,
         timeZone: plan.session_time_zone,
         setCookies: plan.set_cookies,
+        isSecureContext,
       });
     }
 
@@ -296,6 +369,6 @@ export default {
     }
 
     // All non-stream, non-static responses are emitted from Rust plan fields.
-    return responseFromPlan(plan);
+    return responseFromPlan(plan, { isSecureContext });
   },
 };

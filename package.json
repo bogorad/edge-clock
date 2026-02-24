@@ -6,7 +6,8 @@
   "scripts": {
     "build:wasm": "CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_LINKER=wasm-ld cargo build --manifest-path rust/clock-wasm/Cargo.toml --target wasm32-unknown-unknown --release && nix run nixpkgs#wasm-bindgen-cli -- --target bundler --out-dir rust/clock-wasm/pkg --out-name clock_wasm rust/clock-wasm/target/wasm32-unknown-unknown/release/clock_wasm.wasm",
     "test:rust": "cargo test --manifest-path rust/clock-wasm/Cargo.toml",
-    "test": "pnpm run build:wasm && pnpm run test:rust && just test-live",
+    "test:rust:wasm-boundary": "wasm-pack test --node rust/clock-wasm",
+    "test": "pnpm run build:wasm && pnpm run test:rust && pnpm run test:rust:wasm-boundary && just test-live",
     "dev": "wrangler dev --local --live-reload --show-interactive-dev-session=true"
   }
 }

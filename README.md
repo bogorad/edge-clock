@@ -5,15 +5,15 @@ A server-rendered clock app that displays user-local time as `HH.MM.SS` (24-hour
 ## Documentation Scope
 
 - Canonical project documentation is maintained in `README.md` and `AGENTS.md`.
-- The `docs/` directory is intentionally removed to avoid drift with implementation.
-- Update these two files when architecture or runtime behavior changes.
+- `docs/bindgen/` is kept in-repo as reference guidance for Rust/WASM interop work.
+- Keep `README.md` as the runtime source of truth; update `docs/bindgen/` when bindgen guidance changes.
 
 ## Stack at a Glance
 
 - **Build orchestration:** `pnpm` scripts and `just` targets
 - **Server host runtime:** Cloudflare Workers via Wrangler
 - **Core app logic:** Rust compiled to `wasm32-unknown-unknown`
-- **Client update mechanism:** HTMX + SSE extension from CDN
+- **Client update mechanism:** HTMX + SSE extension from pinned local static assets
 - **Rendering model:** Server-side only
 
 ## What Runs Where
@@ -48,9 +48,9 @@ A server-rendered clock app that displays user-local time as `HH.MM.SS` (24-hour
 - Browser receives server-rendered HTML and CSS.
 - Browser runs `/static/timezone-bootstrap.js` to detect timezone via `Intl.DateTimeFormat().resolvedOptions().timeZone`.
 - On first load, browser sends timezone in `?tz=<IANA zone>` so host can persist it for the session.
-- Browser loads HTMX scripts from CDN:
-  - `https://unpkg.com/htmx.org@1.9.12`
-  - `https://unpkg.com/htmx.org@1.9.12/dist/ext/sse.js`
+- Browser loads HTMX scripts from pinned local static assets:
+  - `/static/vendor/htmx.org@1.9.12/htmx.min.js`
+  - `/static/vendor/htmx.org@1.9.12/dist/ext/sse.js`
 - Browser opens SSE and swaps incoming `<time>` fragments using HTMX attributes.
 - Theme switching is HTMX-only and server-side; no client-side JavaScript is used for theme state.
 
@@ -69,7 +69,7 @@ The host adapter in the repository is:
 1. Browser loads `GET /`; bootstrap script detects browser timezone.
 2. Browser sends timezone (`?tz=<IANA zone>`) on initial request when needed.
 3. For non-stream endpoints, host forwards request transports (`method`, `path`, query, cookies, `x-timezone`, `HX-Request`) plus unix seconds to Rust `typed_handle_http`.
-4. Rust returns the response plan (`status`, `body`, optional `content_type`, optional `location`, and `set_cookies` directives).
+4. Rust returns the response plan as JSON (`status`, `body`, optional `content_type`, optional `location`, and `set_cookies` directives).
 5. Host emits the HTTP response from that plan; no per-route business branching or cookie decision logic is implemented in JS.
 6. For `/clock-stream`, host manages SSE transport lifecycle and calls Rust `typed_render_sse` for payload frames.
 7. Theme toggle still returns `200` swap payloads for HTMX and `303 Location: /` for non-HTMX, based on Rust planner output.
@@ -92,6 +92,7 @@ The host adapter in the repository is:
 - Node.js + pnpm
 - Rust/Cargo toolchain
 - Rust target `wasm32-unknown-unknown`
+- `wasm-pack` available on `PATH` (included in the flake dev shell)
 - `wasm-ld` available on `PATH` (included in the flake dev shell)
 
 If a tool is missing:
@@ -132,6 +133,7 @@ just wrangler-deploy
 ```bash
 pnpm run build:wasm
 pnpm run test:rust
+pnpm run test:rust:wasm-boundary
 pnpm test
 pnpm run dev
 ```
@@ -200,7 +202,7 @@ JavaScript remains only as Worker runtime glue around Rust/WASM planning and ren
    - Required to own stream transport concerns (open/close/timer/cancel) and write `text/event-stream` frames.
 
 4. **WASM boundary glue (`src/worker.mjs`)**
-   - Required to marshal UTF-8 strings and primitive inputs/outputs across JS <-> WASM memory.
+   - Required to initialize wasm-bindgen exports and exchange JSON payload strings across the JS <-> WASM boundary.
 
 5. **Browser timezone bootstrap (`public/timezone-bootstrap.js`)**
    - Explicitly allowed exception: browser timezone detection/hinting for first-request localization.
@@ -226,9 +228,10 @@ Timezone source precedence for SSE rendering:
 
 ## Testing
 
-- Rust tests: `rust/clock-wasm/src/lib.rs`
-- Automated live regression gate: `pnpm test` runs wasm build, Rust tests, and `just test-live` endpoint checks on port `5656` (fails fast if `5656` is already in use)
-- Live checks assert HTTP semantics for status/content-type/location/set-cookie plus SSE transport behavior: `just verify-theme-redirect 5656` and `just verify-worker-flows 5656`
+- Rust tests: `rust/clock-wasm/src/lib.rs`; wasm boundary smoke tests: `rust/clock-wasm/tests/boundary_wasm.rs`.
+- `pnpm test` runs wasm build, Rust unit tests, executed wasm boundary tests (`wasm-pack test --node`), then live endpoint checks via `just test-live 5656`.
+- `just test-live` first runs `just verify-dev-start 5656 8` to confirm `just dev` starts and binds the port before the full live assertions.
+- Live checks assert HTTP semantics for status/content-type/location/set-cookie, static asset handling, and SSE transport behavior via `just verify-theme-redirect 5656` and `just verify-worker-flows 5656`.
 
 Run all gates:
 
@@ -247,15 +250,20 @@ just test-live 5656
 ```text
 .
 |- src/
-|  `- worker.mjs         # Wrangler/Cloudflare Worker entrypoint
+|  `- worker.mjs                    # Wrangler/Cloudflare Worker entrypoint
 |- rust/clock-wasm/
 |  |- Cargo.toml
-|  `- src/lib.rs         # Rust planner/router + chrono/chrono-tz clock renderer + HTML/SSE exports
+|  |- src/lib.rs                    # Rust planner/router + chrono/chrono-tz clock renderer + HTML/SSE exports
+|  `- tests/boundary_wasm.rs        # wasm-bindgen boundary smoke tests
 |- public/
 |  |- favicon.ico
 |  |- index.html
 |  |- styles.css
-|  `- timezone-bootstrap.js
+|  |- timezone-bootstrap.js
+|  `- vendor/htmx.org@1.9.12/       # pinned local HTMX + SSE extension assets
+|- docs/bindgen/
+|  |- bindgen.md
+|  `- chapters.md
 |- scripts/
 |  `- with-cloudflare-env.sh
 |- wrangler.toml
