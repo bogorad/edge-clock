@@ -3,53 +3,35 @@ use chrono_tz::Tz;
 use cookie::time::Duration;
 use cookie::{Cookie, SameSite};
 use handlebars::Handlebars;
-use percent_encoding::{AsciiSet, CONTROLS, percent_decode_str, utf8_percent_encode};
+use percent_encoding::percent_decode_str;
 use serde::Serialize;
+use uri_encode::encode_uri_component;
 use url::form_urlencoded;
 use wasm_bindgen::prelude::*;
 
+// Sentinel used by packed clock export when input validation fails.
 const INVALID_RESULT: u64 = 0;
 
+// Route ids consumed by Worker host code; keep these stable across boundary.
 const ROUTE_NOT_FOUND: u32 = 0;
 const ROUTE_HOME: u32 = 1;
 const ROUTE_CLOCK_STREAM: u32 = 2;
 const ROUTE_STATIC_ASSET: u32 = 3;
 const ROUTE_THEME: u32 = 4;
+// Input and cookie policy constraints.
 const TIME_ZONE_MAX_LEN: usize = 100;
 const COOKIE_MAX_AGE_SECONDS: u32 = 30 * 24 * 60 * 60;
 const TIMEZONE_COOKIE_NAME: &str = "clock_tz";
 const THEME_COOKIE_NAME: &str = "clock_theme";
 const THEME_LIGHT: &str = "light";
 const THEME_DARK: &str = "dark";
+// Embedded Handlebars template source used for home page rendering.
 const HOME_TEMPLATE: &str = include_str!("../../../public/index.html");
+// Stable fallback JSON literals returned when serialization fails.
 const REQUEST_CONTEXT_ERROR_JSON: &str = r#"{"session_time_zone":null,"supplied_time_zone":null,"session_theme":"light","requested_theme":null,"should_set_time_zone_cookie":false,"should_set_theme_cookie":false,"once":false,"hx":false}"#;
 const HTTP_PLAN_ERROR_JSON: &str = r#"{"route":0,"status":500,"body":"serialization error","content_type":"text/plain; charset=utf-8","location":null,"set_cookies":[],"session_time_zone":null,"once":false}"#;
-const URI_COMPONENT_ENCODE_SET: &AsciiSet = &CONTROLS
-    .add(b' ')
-    .add(b'"')
-    .add(b'#')
-    .add(b'$')
-    .add(b'%')
-    .add(b'&')
-    .add(b'+')
-    .add(b',')
-    .add(b'/')
-    .add(b':')
-    .add(b';')
-    .add(b'<')
-    .add(b'=')
-    .add(b'>')
-    .add(b'?')
-    .add(b'@')
-    .add(b'[')
-    .add(b'\\')
-    .add(b']')
-    .add(b'^')
-    .add(b'`')
-    .add(b'{')
-    .add(b'|')
-    .add(b'}');
 
+// Template context injected into `public/index.html`.
 #[derive(Serialize)]
 struct HomeTemplateContext<'a> {
     theme: &'a str,
@@ -58,6 +40,7 @@ struct HomeTemplateContext<'a> {
     clock_element: &'a str,
 }
 
+// Fully resolved request context computed once and reused by route planners.
 #[derive(Serialize)]
 struct RequestContextValues {
     session_time_zone: Option<String>,
@@ -70,12 +53,14 @@ struct RequestContextValues {
     hx: bool,
 }
 
+// Generic HTTP-like render payload shared by home/sse/not-found helpers.
 #[derive(Serialize)]
 struct RenderResponse {
     status: u16,
     body: String,
 }
 
+// Host-executable response plan produced by Rust and interpreted in Worker JS.
 #[derive(Serialize)]
 struct HttpResponsePlan {
     route: u32,
@@ -88,6 +73,8 @@ struct HttpResponsePlan {
     once: bool,
 }
 
+// Keep a compiled Handlebars template in thread-local storage so request
+// rendering avoids repeated template parse/registration cost.
 thread_local! {
     static HOME_RENDERER: Handlebars<'static> = {
         let mut renderer = Handlebars::new();
@@ -98,6 +85,8 @@ thread_local! {
     };
 }
 
+// Format a validated wall-clock time into fixed-width ASCII bytes (`HH.MM.SS`).
+// Used by the packed wasm export and by tests that assert deterministic output.
 pub fn format_clock_bytes(hour: u32, minute: u32, second: u32) -> Result<[u8; 8], &'static str> {
     let clock_text = format_clock_string(hour, minute, second)?;
     let clock_bytes = clock_text.as_bytes();
@@ -110,11 +99,14 @@ pub fn format_clock_bytes(hour: u32, minute: u32, second: u32) -> Result<[u8; 8]
     Ok(bytes)
 }
 
+// Validate hour/minute/second boundaries and return canonical display text.
 fn format_clock_string(hour: u32, minute: u32, second: u32) -> Result<String, &'static str> {
     let clock_time = NaiveTime::from_hms_opt(hour, minute, second).ok_or("value out of range")?;
     Ok(clock_time.format("%H.%M.%S").to_string())
 }
 
+// Parse a user-provided timezone candidate with safety constraints
+// (trimmed, non-empty, bounded length, valid IANA identifier).
 fn parse_time_zone_candidate(time_zone_value: &str) -> Option<Tz> {
     let trimmed = time_zone_value.trim();
     if trimmed.is_empty() || trimmed.len() > TIME_ZONE_MAX_LEN {
@@ -124,10 +116,12 @@ fn parse_time_zone_candidate(time_zone_value: &str) -> Option<Tz> {
     trimmed.parse::<Tz>().ok()
 }
 
+// Convert accepted timezone input into canonical chrono-tz string form.
 fn normalize_time_zone_value(time_zone_value: &str) -> Option<String> {
     parse_time_zone_candidate(time_zone_value).map(|time_zone| time_zone.to_string())
 }
 
+// Test-only helper that isolates timezone precedence and cookie-write decisions.
 #[cfg(test)]
 fn resolve_time_zone_context_values(
     query_time_zone_value: Option<&str>,
@@ -150,10 +144,14 @@ fn resolve_time_zone_context_values(
     (session_time_zone, supplied_time_zone, should_set_cookie)
 }
 
+// Runtime parser with UTC fallback so invalid client input never aborts
+// rendering/planning.
 fn parse_time_zone(time_zone_value: &str) -> Tz {
     parse_time_zone_candidate(time_zone_value).unwrap_or(chrono_tz::UTC)
 }
 
+// Convert UNIX seconds into timezone-adjusted clock text used by both
+// HTML and SSE rendering paths.
 fn clock_text_at_unix_seconds(unix_seconds: u32, time_zone_value: &str) -> Result<String, &'static str> {
     let utc_time = DateTime::<Utc>::from_timestamp(unix_seconds as i64, 0)
         .ok_or("value out of range")?;
@@ -162,12 +160,14 @@ fn clock_text_at_unix_seconds(unix_seconds: u32, time_zone_value: &str) -> Resul
     format_clock_string(local_time.hour(), local_time.minute(), local_time.second())
 }
 
+// Pack 8 ASCII bytes into a u64 for the compact wasm-facing helper export.
 fn pack_bytes(bytes: [u8; 8]) -> u64 {
     bytes
         .iter()
         .fold(0_u64, |acc, byte| (acc << 8) | u64::from(*byte))
 }
 
+// Inverse of `pack_bytes`, primarily used by tests to decode packed results.
 pub fn unpack_bytes(packed: u64) -> [u8; 8] {
     let mut bytes = [0_u8; 8];
     let mut value = packed;
@@ -179,6 +179,8 @@ pub fn unpack_bytes(packed: u64) -> [u8; 8] {
     bytes
 }
 
+// Build the `<time>` element consistently so page HTML and SSE payloads share
+// one source of markup truth.
 fn render_clock_element(clock_text: &str) -> String {
     let datetime = clock_text.replace('.', ":");
     format!(
@@ -186,6 +188,8 @@ fn render_clock_element(clock_text: &str) -> String {
     )
 }
 
+// Theme normalization policy: only `dark` is preserved; everything else maps
+// to `light` to keep server state finite and predictable.
 fn normalize_theme_value(theme_value: &str) -> &'static str {
     if theme_value.eq_ignore_ascii_case(THEME_DARK) {
         THEME_DARK
@@ -194,6 +198,7 @@ fn normalize_theme_value(theme_value: &str) -> &'static str {
     }
 }
 
+// Compute next theme state for the toggle control.
 fn next_theme_value(theme_value: &str) -> &'static str {
     if theme_value == THEME_DARK {
         THEME_LIGHT
@@ -202,6 +207,7 @@ fn next_theme_value(theme_value: &str) -> &'static str {
     }
 }
 
+// Compute accessible toggle label that matches the next theme target.
 fn next_theme_label(theme_value: &str) -> &'static str {
     if theme_value == THEME_DARK {
         "Switch to light mode"
@@ -210,6 +216,7 @@ fn next_theme_label(theme_value: &str) -> &'static str {
     }
 }
 
+// Render the full home template with precomputed context values.
 fn render_home_template(context: &HomeTemplateContext<'_>) -> Result<String, &'static str> {
     HOME_RENDERER.with(|renderer| {
         renderer
@@ -218,6 +225,7 @@ fn render_home_template(context: &HomeTemplateContext<'_>) -> Result<String, &'s
     })
 }
 
+// Assemble home template context from normalized theme and clock markup.
 fn render_home_html_text(clock_text: &str, theme_value: &str) -> Result<String, &'static str> {
     let clock_element = render_clock_element(clock_text);
     let normalized_theme = normalize_theme_value(theme_value);
@@ -231,6 +239,7 @@ fn render_home_html_text(clock_text: &str, theme_value: &str) -> Result<String, 
     render_home_template(&context)
 }
 
+// Render an SSE frame payload for the `clock` event channel.
 fn render_clock_sse_event_text(clock_text: &str) -> String {
     format!(
         "event: clock\ndata: {}\n\n",
@@ -238,6 +247,8 @@ fn render_clock_sse_event_text(clock_text: &str) -> String {
     )
 }
 
+// Convert rendered home HTML into a status/body pair with deterministic
+// fallback text when template rendering fails.
 fn write_home_html_response(clock_text: &str, theme_value: &str) -> RenderResponse {
     match render_home_html_text(clock_text, theme_value) {
         Ok(home_html) => RenderResponse {
@@ -251,6 +262,7 @@ fn write_home_html_response(clock_text: &str, theme_value: &str) -> RenderRespon
     }
 }
 
+// Test-only adapter that exercises home rendering from H/M/S values directly.
 #[cfg(test)]
 fn render_home_html_response(hour: u32, minute: u32, second: u32, theme_value: &str) -> RenderResponse {
     match format_clock_string(hour, minute, second) {
@@ -262,6 +274,7 @@ fn render_home_html_response(hour: u32, minute: u32, second: u32, theme_value: &
     }
 }
 
+// Production home renderer that starts from UNIX seconds and timezone.
 fn render_home_html_at_unix_seconds_response(
     unix_seconds: u32,
     time_zone_value: &str,
@@ -276,6 +289,7 @@ fn render_home_html_at_unix_seconds_response(
     }
 }
 
+// Convert clock text into a successful SSE response payload.
 fn write_clock_sse_event_response(clock_text: &str) -> RenderResponse {
     RenderResponse {
         status: 200,
@@ -283,6 +297,7 @@ fn write_clock_sse_event_response(clock_text: &str) -> RenderResponse {
     }
 }
 
+// Test-only adapter that exercises SSE rendering from H/M/S values directly.
 #[cfg(test)]
 fn render_clock_sse_event_response(hour: u32, minute: u32, second: u32) -> RenderResponse {
     match format_clock_string(hour, minute, second) {
@@ -294,6 +309,7 @@ fn render_clock_sse_event_response(hour: u32, minute: u32, second: u32) -> Rende
     }
 }
 
+// Production SSE renderer that starts from UNIX seconds and timezone.
 fn render_clock_sse_event_at_unix_seconds_response(
     unix_seconds: u32,
     time_zone_value: &str,
@@ -307,6 +323,7 @@ fn render_clock_sse_event_at_unix_seconds_response(
     }
 }
 
+// Pure route classifier shared by exported planner helpers and tests.
 fn route_from(method: &[u8], path: &[u8]) -> u32 {
     match (method, path) {
         (b"GET", b"/") => ROUTE_HOME,
@@ -317,6 +334,8 @@ fn route_from(method: &[u8], path: &[u8]) -> u32 {
     }
 }
 
+// Parse relevant query params (`tz`, `theme`, `once`) with last-value-wins
+// semantics so repeated keys follow common URL behavior.
 fn parse_query_param_values(query: &str) -> (Option<String>, Option<String>, Option<String>) {
     let mut time_zone = None;
     let mut theme = None;
@@ -345,6 +364,8 @@ fn parse_query_param_values(query: &str) -> (Option<String>, Option<String>, Opt
     (time_zone, theme, once)
 }
 
+// Reject malformed `%` sequences before decoding so bad inputs become
+// deterministic `None` instead of partially decoded garbage.
 fn has_invalid_percent_encoding(value: &str) -> bool {
     let bytes = value.as_bytes();
     let mut index = 0;
@@ -368,6 +389,8 @@ fn has_invalid_percent_encoding(value: &str) -> bool {
     false
 }
 
+// Decode query values using form-urlencoding parser while preserving literal `+`
+// (this app treats `+` as a character, not space).
 fn decode_query_value(raw_value: &str) -> Option<String> {
     if has_invalid_percent_encoding(raw_value) {
         return None;
@@ -393,6 +416,7 @@ fn decode_query_value(raw_value: &str) -> Option<String> {
         .map(|(_, value)| value.into_owned())
 }
 
+// Decode cookie/path component style percent-encoding into UTF-8 text.
 fn decode_percent_component(value: &str) -> Option<String> {
     if has_invalid_percent_encoding(value) {
         return None;
@@ -404,6 +428,8 @@ fn decode_percent_component(value: &str) -> Option<String> {
         .map(|decoded| decoded.into_owned())
 }
 
+// Extract `clock_tz` and `clock_theme` cookie values from the Cookie header.
+// Invalid cookie fragments are ignored instead of failing the whole parse.
 fn parse_cookie_values(cookie_header: &str) -> (Option<String>, Option<String>) {
     let mut time_zone = None;
     let mut theme = None;
@@ -428,6 +454,8 @@ fn parse_cookie_values(cookie_header: &str) -> (Option<String>, Option<String>) 
     (time_zone, theme)
 }
 
+// Resolve request context used by all route planners: timezone precedence,
+// theme precedence, cookie write decisions, once/hx flags.
 fn resolve_request_context_values(
     query: &str,
     cookie: &str,
@@ -478,10 +506,7 @@ fn resolve_request_context_values(
     }
 }
 
-fn encode_uri_component(value: &str) -> String {
-    utf8_percent_encode(value, URI_COMPONENT_ENCODE_SET).to_string()
-}
-
+// Build one Set-Cookie directive with project policy attributes.
 fn format_cookie(name: &str, value: &str) -> String {
     let mut cookie = Cookie::new(name.to_string(), encode_uri_component(value));
     cookie.set_path("/");
@@ -496,14 +521,18 @@ fn format_cookie(name: &str, value: &str) -> String {
     )
 }
 
+// Dedicated formatter for timezone cookie directive.
 fn format_time_zone_cookie(time_zone: &str) -> String {
     format_cookie(TIMEZONE_COOKIE_NAME, time_zone)
 }
 
+// Dedicated formatter for theme cookie directive.
 fn format_theme_cookie(theme: &str) -> String {
     format_cookie(THEME_COOKIE_NAME, theme)
 }
 
+// Final cookie emission gate so each route can include only the directives it
+// owns while avoiding redundant writes.
 fn finalize_cookie_directives(
     context: &RequestContextValues,
     include_time_zone_cookie: bool,
@@ -532,6 +561,8 @@ fn finalize_cookie_directives(
     cookies
 }
 
+// Construct the neutral zero-value plan used as baseline for route overrides.
+// `status=0` is intentional sentinel for host-handled routes.
 fn empty_route_plan(route: u32) -> HttpResponsePlan {
     HttpResponsePlan {
         route,
@@ -545,6 +576,8 @@ fn empty_route_plan(route: u32) -> HttpResponsePlan {
     }
 }
 
+// Core planner: converts an HTTP-like request into a deterministic response plan
+// that JS host code can execute (HTML/SSE/redirect/static/not-found).
 fn build_http_response_plan(
     method: &str,
     path: &str,
@@ -622,6 +655,7 @@ fn build_http_response_plan(
 }
 
 
+// Shared plain-text 404 payload builder.
 fn render_not_found_response() -> RenderResponse {
     RenderResponse {
         status: 404,
@@ -629,6 +663,7 @@ fn render_not_found_response() -> RenderResponse {
     }
 }
 
+// Compact wasm helper: returns packed ASCII `HH.MM.SS` or 0 sentinel on error.
 pub fn format_time_packed(hour: u32, minute: u32, second: u32) -> u64 {
     match format_clock_bytes(hour, minute, second) {
         Ok(bytes) => pack_bytes(bytes),
@@ -636,20 +671,24 @@ pub fn format_time_packed(hour: u32, minute: u32, second: u32) -> u64 {
     }
 }
 
+// Serialize render payloads to JSON with deterministic fallback payload.
 fn render_response_json(response: RenderResponse) -> String {
     serde_json::to_string(&response)
         .unwrap_or_else(|_| "{\"status\":500,\"body\":\"serialization error\"}".to_string())
 }
 
+// Generic JSON serializer with caller-provided fallback literal.
 fn to_json_string<T: Serialize>(value: &T, fallback_json: &str) -> String {
     serde_json::to_string(value).unwrap_or_else(|_| fallback_json.to_string())
 }
 
+// Expose route classifier to host for cheap fast-path checks when needed.
 #[wasm_bindgen]
 pub fn typed_route_id(method: &str, path: &str) -> u32 {
     route_from(method.as_bytes(), path.as_bytes())
 }
 
+// Export full context resolution as JSON for debugging and contract tests.
 #[wasm_bindgen]
 pub fn typed_resolve_request_context(
     query: Option<String>,
@@ -669,6 +708,7 @@ pub fn typed_resolve_request_context(
     to_json_string(&values, REQUEST_CONTEXT_ERROR_JSON)
 }
 
+// Export home-page render response as JSON from UNIX seconds + optional inputs.
 #[wasm_bindgen]
 pub fn typed_render_home(unix_seconds: u32, time_zone: Option<String>, theme: Option<String>) -> String {
     let response = render_home_html_at_unix_seconds_response(
@@ -680,6 +720,7 @@ pub fn typed_render_home(unix_seconds: u32, time_zone: Option<String>, theme: Op
     render_response_json(response)
 }
 
+// Export one SSE event payload as JSON; JS host owns stream cadence/lifecycle.
 #[wasm_bindgen]
 pub fn typed_render_sse(unix_seconds: u32, time_zone: Option<String>) -> String {
     let response = render_clock_sse_event_at_unix_seconds_response(
@@ -690,11 +731,14 @@ pub fn typed_render_sse(unix_seconds: u32, time_zone: Option<String>) -> String 
     render_response_json(response)
 }
 
+// Export canonical not-found payload as JSON.
 #[wasm_bindgen]
 pub fn typed_render_not_found() -> String {
     render_response_json(render_not_found_response())
 }
 
+// Primary exported planner used by Worker: returns route/status/body/headers
+// plan as JSON for host-side execution.
 #[wasm_bindgen]
 pub fn typed_handle_http(
     method: &str,
@@ -718,6 +762,7 @@ pub fn typed_handle_http(
     to_json_string(&plan, HTTP_PLAN_ERROR_JSON)
 }
 
+// Contract-focused tests for routing, rendering, parsing, and planner behavior.
 #[cfg(test)]
 mod tests {
     use super::{
@@ -731,17 +776,20 @@ mod tests {
         THEME_LIGHT,
     };
 
+    // Decode packed u64 clock output back into readable ASCII for assertions.
     fn unpack_to_string(packed: u64) -> String {
         let bytes = unpack_bytes(packed);
         String::from_utf8(bytes.to_vec()).expect("clock bytes are valid ASCII")
     }
 
+    // Verifies fixed-width zero-padding for single-digit time components.
     #[test]
     fn formats_single_digits_with_zero_padding() {
         let formatted = format_clock_bytes(9, 5, 7).expect("valid time should format");
         assert_eq!(&formatted, b"09.05.07");
     }
 
+    // Verifies canonical formatting at minimum and maximum valid time values.
     #[test]
     fn formats_boundary_values() {
         let midnight = format_clock_bytes(0, 0, 0).expect("midnight should format");
@@ -751,33 +799,39 @@ mod tests {
         assert_eq!(&max_time, b"23.59.59");
     }
 
+    // Reject hour values outside 0..=23.
     #[test]
     fn rejects_invalid_hour() {
         assert!(format_clock_bytes(24, 0, 0).is_err());
     }
 
+    // Reject minute values outside 0..=59.
     #[test]
     fn rejects_invalid_minute() {
         assert!(format_clock_bytes(12, 60, 0).is_err());
     }
 
+    // Reject second values outside 0..=59.
     #[test]
     fn rejects_invalid_second() {
         assert!(format_clock_bytes(12, 59, 60).is_err());
     }
 
+    // Confirms packed export path preserves the same formatted clock text.
     #[test]
     fn wasm_export_returns_packed_ascii_clock_text() {
         let packed = format_time_packed(9, 5, 7);
         assert_eq!(unpack_to_string(packed), "09.05.07");
     }
 
+    // Confirms invalid packed export inputs return the documented zero sentinel.
     #[test]
     fn wasm_export_returns_zero_for_invalid_values() {
         let packed = format_time_packed(99, 0, 0);
         assert_eq!(packed, 0);
     }
 
+    // Verifies route classifier maps supported method/path pairs correctly.
     #[test]
     fn rust_router_matches_supported_routes() {
         assert_eq!(route_from(b"GET", b"/"), ROUTE_HOME);
@@ -786,6 +840,7 @@ mod tests {
         assert_eq!(route_from(b"GET", b"/static/styles.css"), ROUTE_STATIC_ASSET);
     }
 
+    // Verifies unsupported combinations route to not-found.
     #[test]
     fn rust_router_rejects_unknown_routes() {
         assert_eq!(route_from(b"POST", b"/"), ROUTE_NOT_FOUND);
@@ -793,6 +848,7 @@ mod tests {
         assert_eq!(route_from(b"GET", b"/theme"), ROUTE_NOT_FOUND);
     }
 
+    // Verifies default light-theme page render includes expected HTMX wiring.
     #[test]
     fn rust_renders_home_html_with_light_theme_by_default() {
         let response = render_home_html_response(9, 5, 7, THEME_LIGHT);
@@ -811,6 +867,7 @@ mod tests {
         assert!(response.body.contains("timezone-bootstrap.js"));
     }
 
+    // Verifies dark-theme render flips toggle target/label and state marker.
     #[test]
     fn rust_renders_home_html_with_dark_theme() {
         let response = render_home_html_response(9, 5, 7, "dark");
@@ -822,6 +879,7 @@ mod tests {
         assert!(response.body.contains("hx-post=\"/theme?theme=light\""));
     }
 
+    // Verifies invalid theme inputs normalize back to light.
     #[test]
     fn rust_normalizes_invalid_theme_to_light() {
         let response = render_home_html_response(9, 5, 7, "sepia");
@@ -832,6 +890,7 @@ mod tests {
         assert!(response.body.contains("Switch to dark mode"));
     }
 
+    // Verifies SSE payload rendering shape for clock event responses.
     #[test]
     fn rust_renders_sse_clock_event() {
         let response = render_clock_sse_event_response(9, 5, 7);
@@ -843,6 +902,7 @@ mod tests {
             .contains("<time id=\"clock-time\" datetime=\"09:05:07\">09.05.07</time>"));
     }
 
+    // Verifies UNIX-seconds + timezone conversion is reflected in home HTML.
     #[test]
     fn rust_renders_home_html_for_unix_seconds_and_time_zone() {
         let response = render_home_html_at_unix_seconds_response(0, "Asia/Tokyo", "dark");
@@ -854,6 +914,7 @@ mod tests {
         assert!(response.body.contains("data-theme=\"dark\""));
     }
 
+    // Verifies unknown timezone falls back safely to UTC.
     #[test]
     fn rust_falls_back_to_utc_for_unknown_time_zone() {
         let response = render_home_html_at_unix_seconds_response(0, "Mars/Olympus", "light");
@@ -864,6 +925,7 @@ mod tests {
             .contains("<time id=\"clock-time\" datetime=\"00:00:00\">00.00.00</time>"));
     }
 
+    // Verifies valid timezone inputs are canonicalized as expected.
     #[test]
     fn rust_normalizes_valid_time_zone_values() {
         assert_eq!(
@@ -876,17 +938,20 @@ mod tests {
         );
     }
 
+    // Verifies invalid timezone identifiers are rejected.
     #[test]
     fn rust_rejects_invalid_time_zone_values() {
         assert_eq!(normalize_time_zone_value("Mars/Olympus"), None);
     }
 
+    // Verifies defense against excessively long timezone values.
     #[test]
     fn rust_rejects_overlong_time_zone_values() {
         let time_zone = format!("{}{}", "Asia/", "x".repeat(101));
         assert_eq!(normalize_time_zone_value(time_zone.as_str()), None);
     }
 
+    // Verifies query timezone wins over header/cookie sources.
     #[test]
     fn rust_resolves_time_zone_context_with_query_precedence() {
         let (session, supplied, should_set_cookie) =
@@ -901,6 +966,7 @@ mod tests {
         assert!(should_set_cookie);
     }
 
+    // Verifies valid header timezone is used when query is invalid/missing.
     #[test]
     fn rust_resolves_time_zone_context_with_header_fallback() {
         let (session, supplied, should_set_cookie) =
@@ -911,6 +977,7 @@ mod tests {
         assert!(should_set_cookie);
     }
 
+    // Verifies cookie timezone is used when request provides none.
     #[test]
     fn rust_resolves_time_zone_context_with_cookie_only() {
         let (session, supplied, should_set_cookie) =
@@ -921,6 +988,7 @@ mod tests {
         assert!(!should_set_cookie);
     }
 
+    // Verifies timezone cookie is not rewritten when value is unchanged.
     #[test]
     fn rust_resolves_time_zone_context_without_cookie_update_when_unchanged() {
         let (session, supplied, should_set_cookie) =
@@ -931,6 +999,7 @@ mod tests {
         assert!(!should_set_cookie);
     }
 
+    // Verifies request-level precedence and cookie-write decision for timezone.
     #[test]
     fn rust_resolves_request_context_time_zone_precedence() {
         let values = resolve_request_context_values(
@@ -947,6 +1016,7 @@ mod tests {
         assert_eq!(values.requested_theme, None);
     }
 
+    // Verifies request-level theme precedence and cookie-write decision logic.
     #[test]
     fn rust_resolves_request_context_theme_precedence_and_cookie_decisions() {
         let values =
@@ -966,6 +1036,7 @@ mod tests {
         assert!(!unchanged_values.should_set_theme_cookie);
     }
 
+    // Verifies invalid percent-encoded cookie values are treated as absent.
     #[test]
     fn rust_treats_invalid_percent_encoded_cookie_as_missing() {
         let values =
@@ -977,6 +1048,7 @@ mod tests {
         assert_eq!(values.requested_theme, None);
     }
 
+    // Verifies percent-decoded query values feed timezone/theme/once parsing.
     #[test]
     fn rust_decodes_percent_encoded_query_values() {
         let values = resolve_request_context_values(
@@ -993,6 +1065,7 @@ mod tests {
         assert!(values.once);
     }
 
+    // Verifies `+` remains literal during query decoding in this app contract.
     #[test]
     fn rust_keeps_plus_literal_in_query_values() {
         let (time_zone, theme, once) =
@@ -1003,12 +1076,14 @@ mod tests {
         assert_eq!(once, Some("+1".to_string()));
     }
 
+    // Verifies invalid UTF-8 byte sequences are rejected during decode.
     #[test]
     fn rust_rejects_non_utf8_percent_sequences() {
         assert_eq!(decode_query_value("%FF"), None);
         assert_eq!(decode_percent_component("%FF"), None);
     }
 
+    // Verifies malformed percent-encoded query values become missing fields.
     #[test]
     fn rust_treats_invalid_percent_encoded_query_values_as_missing() {
         let values = resolve_request_context_values(
@@ -1025,6 +1100,7 @@ mod tests {
         assert!(!values.once);
     }
 
+    // Verifies `once` and `hx` flag parsing behavior and case sensitivity.
     #[test]
     fn rust_sets_once_and_hx_bits_for_request_context() {
         let values = resolve_request_context_values("once=0&once=1", "", None, Some("true"));
@@ -1037,6 +1113,7 @@ mod tests {
         assert!(!non_hx_values.hx);
     }
 
+    // Verifies timezone-adjusted SSE rendering for UNIX timestamp input.
     #[test]
     fn rust_renders_sse_event_for_unix_seconds_and_time_zone() {
         let response = render_clock_sse_event_at_unix_seconds_response(0, "Asia/Tokyo");
@@ -1048,6 +1125,7 @@ mod tests {
             .contains("<time id=\"clock-time\" datetime=\"09:00:00\">09.00.00</time>"));
     }
 
+    // Verifies canonical not-found payload content and status.
     #[test]
     fn rust_renders_not_found_payload() {
         let response = render_not_found_response();
@@ -1056,6 +1134,8 @@ mod tests {
         assert_eq!(response.body, "Not Found");
     }
 
+    // Verifies theme route planner differences between HX partial render and
+    // non-HX redirect behavior.
     #[test]
     fn rust_plans_theme_route_with_hx_and_redirect_branches() {
         let htmx_plan = build_http_response_plan(
@@ -1097,6 +1177,8 @@ mod tests {
         );
     }
 
+    // Verifies per-route cookie emission policy across home/stream/theme/
+    // not-found/static routes.
     #[test]
     fn rust_plans_cookie_headers_per_route() {
         let home_plan = build_http_response_plan(
@@ -1110,7 +1192,7 @@ mod tests {
         );
         assert_eq!(
             home_plan.set_cookies,
-            vec!["clock_tz=Asia%2FTokyo; Path=/; Max-Age=2592000; SameSite=Lax".to_string()]
+            vec!["clock_tz=Asia%2fTokyo; Path=/; Max-Age=2592000; SameSite=Lax".to_string()]
         );
 
         let stream_plan = build_http_response_plan(
@@ -1127,7 +1209,7 @@ mod tests {
         assert!(stream_plan.once);
         assert_eq!(
             stream_plan.set_cookies,
-            vec!["clock_tz=Asia%2FTokyo; Path=/; Max-Age=2592000; SameSite=Lax".to_string()]
+            vec!["clock_tz=Asia%2fTokyo; Path=/; Max-Age=2592000; SameSite=Lax".to_string()]
         );
 
         let theme_htmx_plan = build_http_response_plan(
@@ -1142,7 +1224,7 @@ mod tests {
         assert_eq!(
             theme_htmx_plan.set_cookies,
             vec![
-                "clock_tz=Asia%2FTokyo; Path=/; Max-Age=2592000; SameSite=Lax".to_string(),
+                "clock_tz=Asia%2fTokyo; Path=/; Max-Age=2592000; SameSite=Lax".to_string(),
                 "clock_theme=dark; Path=/; Max-Age=2592000; SameSite=Lax".to_string(),
             ]
         );
@@ -1173,7 +1255,7 @@ mod tests {
         assert_eq!(not_found_plan.route, ROUTE_NOT_FOUND);
         assert_eq!(
             not_found_plan.set_cookies,
-            vec!["clock_tz=Asia%2FTokyo; Path=/; Max-Age=2592000; SameSite=Lax".to_string()]
+            vec!["clock_tz=Asia%2fTokyo; Path=/; Max-Age=2592000; SameSite=Lax".to_string()]
         );
 
         let static_plan = build_http_response_plan(

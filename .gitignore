@@ -1,9 +1,9 @@
 .beads/export-state/
 .bv/
 .direnv/
+rust/clock-wasm/src/target/
 .serena/
 .wrangler/
 node_modules/
 rust/clock-wasm/pkg/
 rust/clock-wasm/target/
-

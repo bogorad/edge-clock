@@ -36,7 +36,7 @@ fn typed_handle_http_returns_object_shape_for_home() {
         .iter()
         .any(|cookie| {
             cookie.as_str()
-                == Some("clock_tz=Asia%2FTokyo; Path=/; Max-Age=2592000; SameSite=Lax")
+                == Some("clock_tz=Asia%2fTokyo; Path=/; Max-Age=2592000; SameSite=Lax")
         }));
 }
 
