@@ -1,0 +1,1072 @@
+time=2026-02-23T16:39:07.190+01:00 level=INFO msg="Daemon started (interval: %v, auto-commit: %v, auto-push: %v)" !BADKEY=5s !BADKEY=false !BADKEY=false
+time=2026-02-23T16:39:07.192+01:00 level=INFO msg="using database" path=/home/chuck/git/edge-clock/.beads/beads.db
+time=2026-02-23T16:39:07.258+01:00 level=INFO msg="database opened" path=/home/chuck/git/edge-clock/.beads/beads.db backend=sqlite freshness_checking=true
+time=2026-02-23T16:39:07.258+01:00 level=INFO msg="upgrading .beads/.gitignore"
+time=2026-02-23T16:39:07.258+01:00 level=WARN msg="failed to upgrade .gitignore" error="open .beads/.gitignore: no such file or directory"
+time=2026-02-23T16:39:07.262+01:00 level=INFO msg="Repository fingerprint validated: %s" !BADKEY=bbacbf80
+time=2026-02-23T16:39:07.263+01:00 level=INFO msg="starting RPC server" socket=/home/chuck/git/edge-clock/.beads/bd.sock
+time=2026-02-23T16:39:07.265+01:00 level=INFO msg="RPC server ready (socket listening)"
+time=2026-02-23T16:39:07.270+01:00 level=INFO msg="registered in global registry"
+time=2026-02-23T16:39:07.270+01:00 level=INFO msg="Starting %s..." !BADKEY="sync cycle"
+time=2026-02-23T16:39:07.272+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T16:39:08.962+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T16:39:08.977+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T16:39:08.989+01:00 level=INFO msg="Sync cycle complete"
+time=2026-02-23T16:39:08.989+01:00 level=INFO msg="monitoring parent process" pid=0
+time=2026-02-23T16:39:08.989+01:00 level=INFO msg="using event-driven mode"
+time=2026-02-23T16:39:08.990+01:00 level=INFO msg="Auto-pull disabled: use 'git pull' manually to sync remote changes"
+time=2026-02-23T16:52:17.340+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-atp
+time=2026-02-23T16:52:17.841+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T16:52:17.847+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T16:52:17.849+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T16:52:17.850+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T16:52:17.850+01:00 level=INFO msg="Export complete"
+time=2026-02-23T16:52:18.851+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T16:52:18.852+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T16:52:18.852+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T16:52:18.857+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T16:52:18.857+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T16:52:18.857+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T16:52:20.541+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T16:52:20.551+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T16:52:20.551+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T17:03:21.915+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-dyk
+time=2026-02-23T17:03:22.416+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T17:03:22.417+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T17:03:22.420+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:03:22.420+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T17:03:22.420+01:00 level=INFO msg="Export complete"
+time=2026-02-23T17:03:23.422+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:03:23.423+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:03:23.423+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T17:03:23.431+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:03:23.431+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T17:03:23.431+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T17:03:25.343+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T17:03:25.345+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T17:03:25.346+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T17:07:49.357+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-k20
+time=2026-02-23T17:07:49.867+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T17:07:49.868+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T17:07:49.871+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:07:49.872+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T17:07:49.872+01:00 level=INFO msg="Export complete"
+time=2026-02-23T17:07:50.873+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:07:50.874+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:07:50.874+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T17:07:50.879+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:07:50.879+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T17:07:50.879+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T17:07:52.509+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T17:07:52.512+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T17:07:52.513+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T17:12:01.537+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-m7w
+time=2026-02-23T17:12:02.038+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T17:12:02.039+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T17:12:02.041+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:12:02.042+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T17:12:02.042+01:00 level=INFO msg="Export complete"
+time=2026-02-23T17:12:03.042+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:12:03.043+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:12:03.043+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T17:12:03.048+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:12:03.048+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T17:12:03.048+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T17:12:04.597+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T17:12:04.601+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T17:12:04.602+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T17:14:12.229+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:14:12.230+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:14:12.434+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-23T17:14:13.437+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:14:13.463+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:14:13.463+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-23T17:14:53.800+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-2mv
+time=2026-02-23T17:14:54.301+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T17:14:54.301+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T17:14:54.305+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:14:54.306+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T17:14:54.306+01:00 level=INFO msg="Export complete"
+time=2026-02-23T17:14:55.306+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:14:55.307+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:14:55.307+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T17:14:55.312+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:14:55.312+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T17:14:55.312+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T17:14:57.035+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T17:14:57.039+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T17:14:57.039+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T17:15:07.935+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:15:07.935+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:15:08.106+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-23T17:15:09.107+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:15:09.108+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:15:09.108+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-23T17:15:40.347+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:15:40.347+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:15:41.356+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:15:41.359+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:15:41.359+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-23T17:36:13.777+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-4tg
+time=2026-02-23T17:36:14.278+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T17:36:14.283+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T17:36:14.293+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:36:14.294+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:36:14.295+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T17:36:14.295+01:00 level=INFO msg="Export complete"
+time=2026-02-23T17:36:15.295+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:36:15.296+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:36:15.297+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T17:36:17.074+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T17:36:17.087+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T17:36:17.091+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T17:36:29.289+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-atp
+time=2026-02-23T17:36:29.309+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-dyk
+time=2026-02-23T17:36:29.334+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-k20
+time=2026-02-23T17:36:29.344+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-m7w
+time=2026-02-23T17:36:29.351+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-2mv
+time=2026-02-23T17:36:29.852+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T17:36:29.852+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T17:36:29.864+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:36:29.866+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T17:36:29.866+01:00 level=INFO msg="Export complete"
+time=2026-02-23T17:36:30.866+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:36:30.871+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:36:30.872+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T17:36:32.571+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T17:36:32.575+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T17:36:32.577+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T17:37:06.649+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4tg
+time=2026-02-23T17:37:07.153+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T17:37:07.162+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T17:37:07.166+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T17:37:07.166+01:00 level=INFO msg="Export complete"
+time=2026-02-23T17:37:07.166+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:37:07.166+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:37:08.167+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:37:08.168+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:37:08.168+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T17:37:09.861+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T17:37:09.869+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T17:37:09.870+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T17:39:13.146+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:39:13.146+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:39:13.370+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-23T17:39:14.374+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:39:14.389+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:39:14.390+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-23T17:39:17.578+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:39:17.578+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T17:39:18.589+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T17:39:18.597+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T17:39:18.597+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-23T21:50:26.218+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-0pq
+time=2026-02-23T21:50:26.416+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-0pq.1
+time=2026-02-23T21:50:26.557+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-0pq.2
+time=2026-02-23T21:50:26.736+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-0pq.3
+time=2026-02-23T21:50:26.992+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-0pq.4
+time=2026-02-23T21:50:27.137+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-0pq.5
+time=2026-02-23T21:50:27.638+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T21:50:27.639+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T21:50:27.658+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T21:50:27.659+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T21:50:27.660+01:00 level=INFO msg="Export complete"
+time=2026-02-23T21:50:27.660+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T21:50:28.661+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T21:50:28.662+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T21:50:28.663+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T21:50:30.230+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T21:50:30.251+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T21:50:30.254+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T21:51:09.749+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq.1
+time=2026-02-23T21:51:10.249+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T21:51:10.250+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T21:51:10.270+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T21:51:10.272+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T21:51:10.272+01:00 level=INFO msg="Export complete"
+time=2026-02-23T21:51:11.272+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T21:51:11.278+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T21:51:11.279+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T21:51:13.015+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T21:51:13.031+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T21:51:13.033+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T21:54:37.765+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq.2
+time=2026-02-23T21:54:38.265+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T21:54:38.265+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T21:54:38.285+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T21:54:38.287+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T21:54:38.287+01:00 level=INFO msg="Export complete"
+time=2026-02-23T21:54:39.287+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T21:54:39.287+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T21:54:39.288+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T21:54:41.178+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T21:54:41.190+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T21:54:41.191+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T21:57:11.566+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq.1
+time=2026-02-23T21:57:11.688+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq.2
+time=2026-02-23T21:57:11.812+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq.4
+time=2026-02-23T21:57:11.948+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq.3
+time=2026-02-23T21:57:12.448+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T21:57:12.448+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T21:57:12.458+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T21:57:12.458+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T21:57:12.460+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T21:57:12.460+01:00 level=INFO msg="Export complete"
+time=2026-02-23T21:57:13.459+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T21:57:13.460+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T21:57:13.461+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T21:57:15.225+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T21:57:15.229+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T21:57:15.235+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T22:09:45.764+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq.3
+time=2026-02-23T22:09:45.891+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq.5
+time=2026-02-23T22:09:46.392+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T22:09:46.393+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T22:09:46.403+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:09:46.404+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T22:09:46.405+01:00 level=INFO msg="Export complete"
+time=2026-02-23T22:09:47.404+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T22:09:47.405+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T22:09:47.405+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T22:09:49.564+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T22:09:49.584+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T22:09:49.585+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T22:10:14.677+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-0pq
+time=2026-02-23T22:10:15.177+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T22:10:15.178+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T22:10:15.186+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:10:15.192+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T22:10:15.192+01:00 level=INFO msg="Export complete"
+time=2026-02-23T22:10:16.187+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T22:10:16.188+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T22:10:16.188+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T22:10:17.810+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T22:10:17.822+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T22:10:17.824+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T22:32:20.113+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0
+time=2026-02-23T22:32:20.258+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0.1
+time=2026-02-23T22:32:20.399+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0.1.1
+time=2026-02-23T22:32:20.545+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0.1.2
+time=2026-02-23T22:32:20.696+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0.2
+time=2026-02-23T22:32:20.860+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0.2.1
+time=2026-02-23T22:32:21.048+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0.3
+time=2026-02-23T22:32:21.193+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0.3.1
+time=2026-02-23T22:32:21.349+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-ir0.3.2
+time=2026-02-23T22:32:21.850+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T22:32:21.850+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T22:32:21.858+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:32:21.867+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T22:32:21.867+01:00 level=INFO msg="Export complete"
+time=2026-02-23T22:32:22.860+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T22:32:22.861+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T22:32:22.863+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T22:32:24.613+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T22:32:24.618+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T22:32:24.620+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T22:33:02.380+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.1
+time=2026-02-23T22:33:02.882+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T22:33:02.882+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T22:33:02.893+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:33:02.900+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T22:33:02.900+01:00 level=INFO msg="Export complete"
+time=2026-02-23T22:33:03.894+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T22:33:03.895+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T22:33:03.895+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T22:33:05.771+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T22:33:05.778+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T22:33:05.779+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T22:54:46.224+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.1.1
+time=2026-02-23T22:54:46.373+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.1.2
+time=2026-02-23T22:54:46.519+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.1
+time=2026-02-23T22:54:46.665+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.2.1
+time=2026-02-23T22:54:46.823+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.2
+time=2026-02-23T22:54:46.994+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.3.1
+time=2026-02-23T22:54:47.167+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.3.2
+time=2026-02-23T22:54:47.335+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0.3
+time=2026-02-23T22:54:47.516+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-ir0
+time=2026-02-23T22:54:48.016+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T22:54:48.017+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T22:54:48.029+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:54:48.055+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T22:54:48.055+01:00 level=INFO msg="Export complete"
+time=2026-02-23T22:54:49.030+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T22:54:49.088+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T22:54:49.088+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T22:54:50.752+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T22:54:50.764+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T22:54:50.770+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T22:56:51.651+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:56:51.651+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:56:51.809+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-23T22:56:52.811+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T22:56:52.820+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T22:56:52.821+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-23T22:57:09.512+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:57:09.512+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:57:10.514+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T22:57:10.520+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T22:57:10.520+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-23T22:58:09.677+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-1hl
+time=2026-02-23T22:58:10.177+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T22:58:10.178+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T22:58:10.196+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:58:10.196+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T22:58:10.198+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T22:58:10.199+01:00 level=INFO msg="Export complete"
+time=2026-02-23T22:58:11.199+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T22:58:11.199+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T22:58:11.199+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T22:58:12.973+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T22:58:12.981+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T22:58:12.982+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T23:12:09.563+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8
+time=2026-02-23T23:12:09.718+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.1
+time=2026-02-23T23:12:09.886+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.1.1
+time=2026-02-23T23:12:10.054+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.1.2
+time=2026-02-23T23:12:10.200+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.2
+time=2026-02-23T23:12:10.385+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.2.1
+time=2026-02-23T23:12:10.530+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.2.2
+time=2026-02-23T23:12:10.673+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.3
+time=2026-02-23T23:12:10.833+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.3.1
+time=2026-02-23T23:12:10.998+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-fh8.3.2
+time=2026-02-23T23:12:11.499+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T23:12:11.499+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T23:12:11.510+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:12:11.510+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:12:11.516+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T23:12:11.516+01:00 level=INFO msg="Export complete"
+time=2026-02-23T23:12:12.512+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T23:12:12.518+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T23:12:12.519+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T23:12:14.355+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T23:12:14.375+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T23:12:14.376+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T23:12:28.802+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.1
+time=2026-02-23T23:12:28.950+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.1.1
+time=2026-02-23T23:12:29.451+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T23:12:29.452+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T23:12:29.474+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:12:29.476+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T23:12:29.476+01:00 level=INFO msg="Export complete"
+time=2026-02-23T23:12:30.475+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T23:12:30.476+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T23:12:30.476+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T23:12:32.034+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T23:12:32.051+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T23:12:32.053+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T23:27:53.446+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.1.1
+time=2026-02-23T23:27:53.586+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.1.2
+time=2026-02-23T23:27:53.735+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.1
+time=2026-02-23T23:27:53.887+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.2
+time=2026-02-23T23:27:54.043+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.2.1
+time=2026-02-23T23:27:54.544+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T23:27:54.544+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T23:27:54.553+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:27:54.564+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T23:27:54.564+01:00 level=INFO msg="Export complete"
+time=2026-02-23T23:27:55.555+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T23:27:55.556+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T23:27:55.556+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T23:27:55.561+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:27:55.566+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T23:27:55.566+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T23:27:57.194+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T23:27:57.205+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T23:27:57.207+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T23:36:47.726+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.2.1
+time=2026-02-23T23:36:47.867+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.2.2
+time=2026-02-23T23:36:48.006+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.2
+time=2026-02-23T23:36:48.138+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.3
+time=2026-02-23T23:36:48.275+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.3.1
+time=2026-02-23T23:36:48.460+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.3.2
+time=2026-02-23T23:36:48.693+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8.3
+time=2026-02-23T23:36:48.845+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-fh8
+time=2026-02-23T23:36:49.346+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T23:36:49.346+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T23:36:49.355+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:36:49.366+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T23:36:49.366+01:00 level=INFO msg="Export complete"
+time=2026-02-23T23:36:50.357+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T23:36:50.357+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T23:36:50.358+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T23:36:50.363+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:36:50.363+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T23:36:50.364+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T23:36:51.945+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T23:36:51.952+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T23:36:51.955+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T23:43:22.012+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951
+time=2026-02-23T23:43:22.154+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951.1
+time=2026-02-23T23:43:22.308+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951.1.1
+time=2026-02-23T23:43:22.488+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951.1.2
+time=2026-02-23T23:43:22.676+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951.2
+time=2026-02-23T23:43:22.828+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951.2.1
+time=2026-02-23T23:43:22.974+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951.3
+time=2026-02-23T23:43:23.127+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951.3.1
+time=2026-02-23T23:43:23.277+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-951.3.2
+time=2026-02-23T23:43:23.782+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T23:43:23.782+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T23:43:23.811+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:43:23.815+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T23:43:23.815+01:00 level=INFO msg="Export complete"
+time=2026-02-23T23:43:24.813+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T23:43:24.813+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T23:43:24.814+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T23:43:24.819+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:43:24.819+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T23:43:24.819+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T23:43:26.465+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T23:43:26.477+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T23:43:26.479+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T23:43:30.153+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.1
+time=2026-02-23T23:43:30.292+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.1.1
+time=2026-02-23T23:43:30.421+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.1.2
+time=2026-02-23T23:43:30.578+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.2
+time=2026-02-23T23:43:30.711+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.2.1
+time=2026-02-23T23:43:30.842+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.3
+time=2026-02-23T23:43:30.998+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.3.1
+time=2026-02-23T23:43:31.145+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.3.2
+time=2026-02-23T23:43:31.646+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T23:43:31.646+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T23:43:31.670+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:43:31.670+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:43:31.675+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T23:43:31.675+01:00 level=INFO msg="Export complete"
+time=2026-02-23T23:43:32.671+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T23:43:32.671+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T23:43:32.672+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T23:43:32.677+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:43:32.677+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T23:43:32.677+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T23:43:34.316+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T23:43:34.328+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T23:43:34.330+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-23T23:53:35.353+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.1.1
+time=2026-02-23T23:53:35.488+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.1.2
+time=2026-02-23T23:53:35.635+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.1
+time=2026-02-23T23:53:35.791+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.2.1
+time=2026-02-23T23:53:35.924+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.2
+time=2026-02-23T23:53:36.068+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.3.1
+time=2026-02-23T23:53:36.205+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.3.2
+time=2026-02-23T23:53:36.345+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951.3
+time=2026-02-23T23:53:36.480+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-951
+time=2026-02-23T23:53:36.981+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-23T23:53:36.981+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-23T23:53:37.005+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:53:37.014+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-23T23:53:37.014+01:00 level=INFO msg="Export complete"
+time=2026-02-23T23:53:38.006+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-23T23:53:38.007+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-23T23:53:38.007+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-23T23:53:38.012+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-23T23:53:38.012+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-23T23:53:38.012+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-23T23:53:39.745+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-23T23:53:39.757+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-23T23:53:39.759+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T00:01:28.518+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:01:28.518+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:01:28.809+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T00:01:29.811+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:01:29.815+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:01:29.815+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T00:01:41.470+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:01:41.470+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:01:42.475+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:01:42.483+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:01:42.484+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T00:06:07.996+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-1hl
+time=2026-02-24T00:06:08.497+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T00:06:08.497+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T00:06:08.514+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:06:08.514+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:06:08.527+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T00:06:08.527+01:00 level=INFO msg="Export complete"
+time=2026-02-24T00:06:09.515+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:06:09.516+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:06:09.516+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T00:06:09.521+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:06:09.521+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T00:06:09.521+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T00:06:11.224+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T00:06:11.235+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T00:06:11.237+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T00:48:15.055+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:48:15.055+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:48:15.216+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T00:48:16.218+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:48:16.224+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:48:16.226+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T00:48:26.516+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:48:26.516+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:48:27.518+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:48:27.522+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:48:27.523+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T00:49:03.053+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-z85
+time=2026-02-24T00:49:03.554+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T00:49:03.554+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T00:49:03.570+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:49:03.578+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T00:49:03.578+01:00 level=INFO msg="Export complete"
+time=2026-02-24T00:49:04.571+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:49:04.572+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:49:04.573+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T00:49:04.578+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:49:04.578+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T00:49:04.578+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T00:49:06.289+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T00:49:06.299+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T00:49:06.301+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T00:56:35.011+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-z85
+time=2026-02-24T00:56:35.514+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T00:56:35.515+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T00:56:35.515+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T00:57:29.213+01:00 level=INFO msg="Mutation detected: %s %s" update=edge-clock-z85
+time=2026-02-24T00:57:29.714+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T00:57:29.715+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T00:57:29.715+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T00:57:48.343+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:57:48.343+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:57:48.522+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T00:57:49.524+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:57:49.528+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:57:49.528+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T00:57:59.854+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:57:59.854+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:58:00.856+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:58:00.859+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:58:00.859+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T00:58:37.040+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-y7d
+time=2026-02-24T00:58:37.541+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T00:58:37.541+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T00:58:37.564+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:58:37.576+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T00:58:37.576+01:00 level=INFO msg="Export complete"
+time=2026-02-24T00:58:38.566+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:58:38.567+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:58:38.567+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T00:58:38.573+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:58:38.573+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T00:58:38.574+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T00:58:40.243+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T00:58:40.255+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T00:58:40.257+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T00:59:36.954+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T00:59:37.442+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:59:37.442+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:59:37.603+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T00:59:38.605+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:59:38.610+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:59:38.610+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T00:59:39.551+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:59:39.551+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T00:59:40.554+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T00:59:40.557+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T00:59:40.558+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T01:00:53.488+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-4ia
+time=2026-02-24T01:00:53.988+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T01:00:53.989+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T01:00:54.003+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:00:54.014+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T01:00:54.014+01:00 level=INFO msg="Export complete"
+time=2026-02-24T01:00:55.005+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:00:55.006+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:00:55.006+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T01:00:55.011+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:00:55.011+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T01:00:55.011+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T01:00:56.703+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T01:00:56.720+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T01:00:56.723+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T01:00:59.871+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:00:59.871+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:00.871+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:01:00.874+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:01:00.875+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T01:01:12.327+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:12.327+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:13.328+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:01:13.331+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:01:13.332+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T01:01:22.008+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:22.008+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:22.194+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T01:01:23.195+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:01:23.203+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:01:23.203+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T01:01:28.723+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:28.723+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:29.724+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:01:29.728+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:01:29.729+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T01:01:37.694+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:37.694+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:01:38.694+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:01:38.699+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:01:38.700+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T01:03:24.850+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:03:24.850+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:03:25.019+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/one-commit-tmp.lock
+time=2026-02-24T01:03:26.271+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:03:26.280+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:03:26.286+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T01:03:27.095+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:03:27.096+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:03:28.102+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:03:28.106+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:03:28.107+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T01:05:25.972+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-7vy
+time=2026-02-24T01:05:26.472+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T01:05:26.473+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T01:05:26.485+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:05:26.485+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:05:26.492+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T01:05:26.492+01:00 level=INFO msg="Export complete"
+time=2026-02-24T01:05:27.486+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T01:05:27.487+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T01:05:27.487+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T01:05:27.493+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T01:05:27.493+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T01:05:27.493+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T01:05:29.086+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T01:05:29.100+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T01:05:29.102+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T12:43:46.824+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-3po
+time=2026-02-24T12:43:46.983+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-3po.1
+time=2026-02-24T12:43:47.113+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-3po.2
+time=2026-02-24T12:43:47.254+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-3po.3
+time=2026-02-24T12:43:47.433+01:00 level=INFO msg="Mutation detected: %s %s" update=edge-clock-3po.3
+time=2026-02-24T12:43:47.570+01:00 level=INFO msg="Mutation detected: %s %s" update=edge-clock-3po.3
+time=2026-02-24T12:43:48.070+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T12:43:48.073+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T12:43:48.075+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T12:44:04.194+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-3po.1
+time=2026-02-24T12:44:04.371+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-3po.2
+time=2026-02-24T12:44:04.872+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T12:44:04.883+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T12:44:04.883+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T12:51:57.207+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-3po.3
+time=2026-02-24T12:51:57.708+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T12:51:57.708+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T12:51:57.713+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T14:07:01.800+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-3po.1
+time=2026-02-24T14:07:02.044+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-3po.2
+time=2026-02-24T14:07:02.362+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-3po.3
+time=2026-02-24T14:07:02.621+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-3po
+time=2026-02-24T14:07:03.123+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T14:07:03.124+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T14:07:03.124+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T14:13:07.612+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-y7d
+time=2026-02-24T14:13:07.792+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4ia
+time=2026-02-24T14:13:07.943+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-7vy
+time=2026-02-24T14:13:08.443+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T14:13:08.444+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T14:13:08.444+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T14:19:45.461+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-y7d
+time=2026-02-24T14:19:45.618+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4ia
+time=2026-02-24T14:19:45.788+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-7vy
+time=2026-02-24T14:19:46.288+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T14:19:46.289+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T14:19:46.289+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T14:26:37.186+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T14:26:37.187+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T14:26:37.334+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T14:26:38.336+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T14:26:38.341+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T14:26:38.342+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T14:26:51.530+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T14:26:51.531+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T14:26:52.532+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T14:26:52.535+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T14:26:52.535+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T14:28:30.359+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-b97
+time=2026-02-24T14:28:30.859+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T14:28:30.859+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T14:28:30.883+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T14:28:30.883+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T14:28:30.894+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T14:28:30.894+01:00 level=INFO msg="Export complete"
+time=2026-02-24T14:28:31.884+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T14:28:31.889+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T14:28:31.890+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T14:28:31.894+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T14:28:31.895+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T14:28:31.895+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T14:28:33.602+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T14:28:33.624+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T14:28:33.627+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T14:58:43.952+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-b97
+time=2026-02-24T14:58:44.263+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-b97.1
+time=2026-02-24T14:58:44.584+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-b97.2
+time=2026-02-24T14:58:44.846+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-b97.3
+time=2026-02-24T14:58:45.348+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T14:58:45.349+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T14:58:45.349+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T14:59:03.059+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-b97.1
+time=2026-02-24T14:59:03.201+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-b97.2
+time=2026-02-24T14:59:03.346+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-b97.3
+time=2026-02-24T14:59:03.847+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T14:59:03.847+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T14:59:03.848+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T15:20:46.316+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-b97.1
+time=2026-02-24T15:20:46.482+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-b97.2
+time=2026-02-24T15:20:46.628+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-b97.3
+time=2026-02-24T15:20:46.776+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-b97
+time=2026-02-24T15:20:47.276+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T15:20:47.277+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T15:20:47.277+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T15:25:40.004+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:25:40.004+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:25:41.004+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:25:41.007+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:25:41.008+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T15:25:41.013+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:25:41.013+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T15:25:41.013+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T15:25:42.545+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T15:25:42.568+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T15:25:42.571+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T15:26:08.945+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:26:08.946+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:26:09.139+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T15:26:10.140+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:26:10.145+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:26:10.145+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T15:26:21.012+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:26:21.012+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:26:22.013+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:26:22.017+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:26:22.018+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T15:27:00.944+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-82l
+time=2026-02-24T15:27:01.445+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T15:27:01.445+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T15:27:01.474+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:01.480+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T15:27:01.480+01:00 level=INFO msg="Export complete"
+time=2026-02-24T15:27:02.475+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:27:02.476+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:27:02.476+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T15:27:02.482+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:02.482+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T15:27:02.482+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T15:27:04.124+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T15:27:04.142+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T15:27:04.146+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T15:27:39.041+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:39.041+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:39.203+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T15:27:40.205+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:27:40.213+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:27:40.214+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T15:27:45.723+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:45.724+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:46.725+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:27:46.728+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:27:46.729+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T15:27:49.471+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:49.471+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T15:27:49.521+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T15:27:49.521+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:49.897+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T15:27:49.948+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T15:27:49.948+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:49.948+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T15:27:49.999+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T15:27:49.999+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:49.999+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:50.313+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T15:27:51.314+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:27:51.315+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:27:51.316+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T15:27:58.177+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:58.177+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:27:59.178+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:27:59.183+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:27:59.183+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T15:36:17.179+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:36:17.180+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:36:17.334+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T15:36:18.336+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:36:18.339+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:36:18.340+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T15:36:26.488+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:36:26.488+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:36:27.491+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:36:27.496+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:36:27.496+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T15:45:08.237+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-4pi
+time=2026-02-24T15:45:08.407+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-4pi.1
+time=2026-02-24T15:45:08.542+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-4pi.2
+time=2026-02-24T15:45:08.662+01:00 level=INFO msg="Mutation detected: %s %s" update=edge-clock-4pi.2
+time=2026-02-24T15:45:08.781+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi
+time=2026-02-24T15:45:08.896+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi.1
+time=2026-02-24T15:45:09.396+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T15:45:09.397+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T15:45:09.417+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:45:09.427+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T15:45:09.427+01:00 level=INFO msg="Export complete"
+time=2026-02-24T15:45:10.418+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T15:45:10.418+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T15:45:10.419+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T15:45:10.424+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T15:45:10.424+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T15:45:10.424+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T15:45:12.092+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T15:45:12.109+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T15:45:12.112+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T15:48:37.886+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi.1
+time=2026-02-24T15:48:38.046+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi.2
+time=2026-02-24T15:48:38.203+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi.2
+time=2026-02-24T15:48:38.361+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi
+time=2026-02-24T15:48:38.861+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T15:48:38.862+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T15:48:38.862+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T16:00:22.895+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi.1
+time=2026-02-24T16:00:23.085+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi.2
+time=2026-02-24T16:00:23.260+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-4pi
+time=2026-02-24T16:00:23.535+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:00:23.535+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:00:23.761+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T16:00:23.761+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T16:00:23.762+01:00 level=INFO msg="Pre-export validation failed: %v" !BADKEY="refusing to export: JSONL content has changed since last import (import first to avoid data loss)"
+time=2026-02-24T16:00:24.536+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:00:24.536+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:00:24.537+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T16:00:24.542+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:00:24.542+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T16:00:24.542+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T16:00:26.260+01:00 level=INFO msg="Pulled from remote"
+time=2026-02-24T16:00:26.274+01:00 level=INFO msg="Imported from JSONL"
+time=2026-02-24T16:00:26.276+01:00 level=INFO msg="Auto-import complete"
+time=2026-02-24T16:00:33.855+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:00:33.856+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:00:34.009+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:00:35.010+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:00:35.015+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:00:35.016+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:00:54.012+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:00:54.012+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:00:55.014+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:00:55.018+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:00:55.019+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:02:35.697+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:02:35.697+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:02:35.890+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:02:36.892+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:02:36.896+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:02:36.897+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:02:39.654+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:02:39.654+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:02:40.656+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:02:40.661+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:02:40.662+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:06:38.021+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:38.021+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:38.173+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:06:39.175+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:06:39.178+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:06:39.178+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:06:48.738+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:48.739+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:48.856+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:06:49.858+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:06:49.862+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:06:49.862+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:06:50.241+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:50.241+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:06:50.295+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:06:50.295+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:50.479+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:06:50.530+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:06:50.530+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:50.871+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:06:51.872+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:06:51.873+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:06:51.874+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:06:57.992+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:57.992+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:06:58.053+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:06:58.053+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:58.169+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:06:58.221+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:06:58.221+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:58.687+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:58.687+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:06:58.737+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:06:58.737+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:58.920+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:06:59.793+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:59.793+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:06:59.922+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:06:59.925+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:06:59.926+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:07:00.795+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:07:00.796+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:07:00.796+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:07:01.990+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:01.990+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:07:02.051+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:07:02.051+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:02.193+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:07:02.245+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:07:02.245+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:02.245+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:07:02.295+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:07:02.296+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:02.726+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:02.726+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:07:02.782+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:07:02.782+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:03.090+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:07:03.510+01:00 level=INFO msg="Mutation detected: %s %s" create=edge-clock-rzz
+time=2026-02-24T16:07:04.011+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T16:07:04.011+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T16:07:04.031+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:04.042+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T16:07:04.042+01:00 level=INFO msg="Export complete"
+time=2026-02-24T16:07:04.091+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:07:04.092+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:07:04.092+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T16:07:04.097+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:04.097+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T16:07:04.097+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T16:07:05.032+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:07:05.033+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:07:05.033+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T16:07:05.038+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:05.038+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T16:07:05.038+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T16:07:05.693+01:00 level=INFO msg="Pull failed: %v (backoff: %v)" !BADKEY="git pull failed: exit status 128\nFrom github.com:bogorad/edge-clock\n * branch            dev        -> FETCH_HEAD\nhint: You have divergent branches and need to specify how to reconcile them.\nhint: You can do so by running one of the following commands sometime before\nhint: your next pull:\nhint:\nhint:   git config pull.rebase false  # merge\nhint:   git config pull.rebase true   # rebase\nhint:   git config pull.ff only       # fast-forward only\nhint:\nhint: You can replace \"git config\" with \"git config --global\" to set a default\nhint: preference for all repositories. You can also pass --rebase, --no-rebase,\nhint: or --ff-only on the command line to override the configured default per\nhint: invocation.\nfatal: Need to specify how to reconcile divergent branches.\n" !BADKEY=30s
+time=2026-02-24T16:07:06.765+01:00 level=INFO msg="Pull failed: %v (backoff: %v)" !BADKEY="git pull failed: exit status 128\nFrom github.com:bogorad/edge-clock\n * branch            dev        -> FETCH_HEAD\nhint: You have divergent branches and need to specify how to reconcile them.\nhint: You can do so by running one of the following commands sometime before\nhint: your next pull:\nhint:\nhint:   git config pull.rebase false  # merge\nhint:   git config pull.rebase true   # rebase\nhint:   git config pull.ff only       # fast-forward only\nhint:\nhint: You can replace \"git config\" with \"git config --global\" to set a default\nhint: preference for all repositories. You can also pass --rebase, --no-rebase,\nhint: or --ff-only on the command line to override the configured default per\nhint: invocation.\nfatal: Need to specify how to reconcile divergent branches.\n" !BADKEY=1m0s
+time=2026-02-24T16:07:12.418+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:12.418+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:13.419+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:07:13.422+01:00 level=INFO msg="Skipping %s: in backoff period" !BADKEY=auto-import
+time=2026-02-24T16:07:21.338+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:21.338+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:07:21.389+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:07:21.389+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:22.390+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:07:22.391+01:00 level=INFO msg="Skipping %s: in backoff period" !BADKEY=auto-import
+time=2026-02-24T16:07:30.746+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:30.746+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:07:31.746+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:07:31.753+01:00 level=INFO msg="Skipping %s: in backoff period" !BADKEY=auto-import
+time=2026-02-24T16:08:12.458+01:00 level=INFO msg="Daemon started (interval: %v, auto-commit: %v, auto-push: %v)" !BADKEY=5s !BADKEY=false !BADKEY=false
+time=2026-02-24T16:08:12.458+01:00 level=INFO msg="using database" path=/home/chuck/git/edge-clock/.beads/beads.db
+time=2026-02-24T16:08:12.528+01:00 level=INFO msg="database opened" path=/home/chuck/git/edge-clock/.beads/beads.db backend=sqlite freshness_checking=true
+time=2026-02-24T16:08:12.529+01:00 level=INFO msg="upgrading .beads/.gitignore"
+time=2026-02-24T16:08:12.530+01:00 level=WARN msg="failed to upgrade .gitignore" error="open .beads/.gitignore: no such file or directory"
+time=2026-02-24T16:08:12.534+01:00 level=ERROR msg="repository fingerprint validation failed" error="\nDATABASE MISMATCH DETECTED!\n\nThis database belongs to a different repository:\n  Database repo ID:  bbacbf80\n  Current repo ID:   3a393d2d\n\nThis usually means:\n  1. You copied a .beads directory from another repo (don't do this!)\n  2. Git remote URL changed (run 'bd migrate --update-repo-id')\n  3. Database corruption\n  4. bd was upgraded and URL canonicalization changed\n\n⚠️  CRITICAL: This mismatch can cause beads to incorrectly delete issues during sync!\n   The git-history-backfill mechanism may treat your local issues as deleted\n   because they don't exist in the remote repository's history.\n\nSolutions:\n  - If remote URL changed: bd migrate --update-repo-id\n  - If bd was upgraded: bd migrate --update-repo-id\n  - If wrong database: rm -rf .beads && bd init\n  - If correct database: BEADS_IGNORE_REPO_MISMATCH=1 bd daemon\n    (Warning: This can cause data corruption and unwanted deletions across clones!)\n"
+time=2026-02-24T16:08:29.448+01:00 level=INFO msg="Daemon started (interval: %v, auto-commit: %v, auto-push: %v)" !BADKEY=5s !BADKEY=false !BADKEY=false
+time=2026-02-24T16:08:29.448+01:00 level=INFO msg="using database" path=/home/chuck/git/edge-clock/.beads/beads.db
+time=2026-02-24T16:08:29.521+01:00 level=INFO msg="database opened" path=/home/chuck/git/edge-clock/.beads/beads.db backend=sqlite freshness_checking=true
+time=2026-02-24T16:08:29.521+01:00 level=INFO msg="upgrading .beads/.gitignore"
+time=2026-02-24T16:08:29.521+01:00 level=WARN msg="failed to upgrade .gitignore" error="open .beads/.gitignore: no such file or directory"
+time=2026-02-24T16:08:29.525+01:00 level=ERROR msg="repository fingerprint validation failed" error="\nDATABASE MISMATCH DETECTED!\n\nThis database belongs to a different repository:\n  Database repo ID:  bbacbf80\n  Current repo ID:   3a393d2d\n\nThis usually means:\n  1. You copied a .beads directory from another repo (don't do this!)\n  2. Git remote URL changed (run 'bd migrate --update-repo-id')\n  3. Database corruption\n  4. bd was upgraded and URL canonicalization changed\n\n⚠️  CRITICAL: This mismatch can cause beads to incorrectly delete issues during sync!\n   The git-history-backfill mechanism may treat your local issues as deleted\n   because they don't exist in the remote repository's history.\n\nSolutions:\n  - If remote URL changed: bd migrate --update-repo-id\n  - If bd was upgraded: bd migrate --update-repo-id\n  - If wrong database: rm -rf .beads && bd init\n  - If correct database: BEADS_IGNORE_REPO_MISMATCH=1 bd daemon\n    (Warning: This can cause data corruption and unwanted deletions across clones!)\n"
+time=2026-02-24T16:09:38.182+01:00 level=INFO msg="Daemon started (interval: %v, auto-commit: %v, auto-push: %v)" !BADKEY=5s !BADKEY=false !BADKEY=false
+time=2026-02-24T16:09:38.182+01:00 level=INFO msg="using database" path=/home/chuck/git/edge-clock/.beads/beads.db
+time=2026-02-24T16:09:38.250+01:00 level=INFO msg="database opened" path=/home/chuck/git/edge-clock/.beads/beads.db backend=sqlite freshness_checking=true
+time=2026-02-24T16:09:38.251+01:00 level=INFO msg="upgrading .beads/.gitignore"
+time=2026-02-24T16:09:38.251+01:00 level=WARN msg="failed to upgrade .gitignore" error="open .beads/.gitignore: no such file or directory"
+time=2026-02-24T16:09:38.254+01:00 level=ERROR msg="repository fingerprint validation failed" error="\nDATABASE MISMATCH DETECTED!\n\nThis database belongs to a different repository:\n  Database repo ID:  bbacbf80\n  Current repo ID:   3a393d2d\n\nThis usually means:\n  1. You copied a .beads directory from another repo (don't do this!)\n  2. Git remote URL changed (run 'bd migrate --update-repo-id')\n  3. Database corruption\n  4. bd was upgraded and URL canonicalization changed\n\n⚠️  CRITICAL: This mismatch can cause beads to incorrectly delete issues during sync!\n   The git-history-backfill mechanism may treat your local issues as deleted\n   because they don't exist in the remote repository's history.\n\nSolutions:\n  - If remote URL changed: bd migrate --update-repo-id\n  - If bd was upgraded: bd migrate --update-repo-id\n  - If wrong database: rm -rf .beads && bd init\n  - If correct database: BEADS_IGNORE_REPO_MISMATCH=1 bd daemon\n    (Warning: This can cause data corruption and unwanted deletions across clones!)\n"
+time=2026-02-24T16:11:15.140+01:00 level=INFO msg="Daemon started (interval: %v, auto-commit: %v, auto-push: %v)" !BADKEY=5s !BADKEY=false !BADKEY=false
+time=2026-02-24T16:11:15.142+01:00 level=INFO msg="using database" path=/home/chuck/git/edge-clock/.beads/beads.db
+time=2026-02-24T16:11:15.219+01:00 level=INFO msg="database opened" path=/home/chuck/git/edge-clock/.beads/beads.db backend=sqlite freshness_checking=true
+time=2026-02-24T16:11:15.220+01:00 level=INFO msg="upgrading .beads/.gitignore"
+time=2026-02-24T16:11:15.221+01:00 level=WARN msg="failed to upgrade .gitignore" error="open .beads/.gitignore: no such file or directory"
+time=2026-02-24T16:11:15.225+01:00 level=ERROR msg="repository fingerprint validation failed" error="\nDATABASE MISMATCH DETECTED!\n\nThis database belongs to a different repository:\n  Database repo ID:  bbacbf80\n  Current repo ID:   3a393d2d\n\nThis usually means:\n  1. You copied a .beads directory from another repo (don't do this!)\n  2. Git remote URL changed (run 'bd migrate --update-repo-id')\n  3. Database corruption\n  4. bd was upgraded and URL canonicalization changed\n\n⚠️  CRITICAL: This mismatch can cause beads to incorrectly delete issues during sync!\n   The git-history-backfill mechanism may treat your local issues as deleted\n   because they don't exist in the remote repository's history.\n\nSolutions:\n  - If remote URL changed: bd migrate --update-repo-id\n  - If bd was upgraded: bd migrate --update-repo-id\n  - If wrong database: rm -rf .beads && bd init\n  - If correct database: BEADS_IGNORE_REPO_MISMATCH=1 bd daemon\n    (Warning: This can cause data corruption and unwanted deletions across clones!)\n"
+time=2026-02-24T16:11:52.839+01:00 level=INFO msg="Daemon started (interval: %v, auto-commit: %v, auto-push: %v)" !BADKEY=5s !BADKEY=false !BADKEY=false
+time=2026-02-24T16:11:52.839+01:00 level=INFO msg="using database" path=/home/chuck/git/edge-clock/.beads/beads.db
+time=2026-02-24T16:11:52.913+01:00 level=INFO msg="database opened" path=/home/chuck/git/edge-clock/.beads/beads.db backend=sqlite freshness_checking=true
+time=2026-02-24T16:11:52.913+01:00 level=INFO msg="upgrading .beads/.gitignore"
+time=2026-02-24T16:11:52.913+01:00 level=WARN msg="failed to upgrade .gitignore" error="open .beads/.gitignore: no such file or directory"
+time=2026-02-24T16:11:52.919+01:00 level=ERROR msg="repository fingerprint validation failed" error="\nDATABASE MISMATCH DETECTED!\n\nThis database belongs to a different repository:\n  Database repo ID:  bbacbf80\n  Current repo ID:   3a393d2d\n\nThis usually means:\n  1. You copied a .beads directory from another repo (don't do this!)\n  2. Git remote URL changed (run 'bd migrate --update-repo-id')\n  3. Database corruption\n  4. bd was upgraded and URL canonicalization changed\n\n⚠️  CRITICAL: This mismatch can cause beads to incorrectly delete issues during sync!\n   The git-history-backfill mechanism may treat your local issues as deleted\n   because they don't exist in the remote repository's history.\n\nSolutions:\n  - If remote URL changed: bd migrate --update-repo-id\n  - If bd was upgraded: bd migrate --update-repo-id\n  - If wrong database: rm -rf .beads && bd init\n  - If correct database: BEADS_IGNORE_REPO_MISMATCH=1 bd daemon\n    (Warning: This can cause data corruption and unwanted deletions across clones!)\n"
+time=2026-02-24T16:12:11.071+01:00 level=INFO msg="Daemon started (interval: %v, auto-commit: %v, auto-push: %v)" !BADKEY=5s !BADKEY=false !BADKEY=false
+time=2026-02-24T16:12:11.071+01:00 level=INFO msg="using database" path=/home/chuck/git/edge-clock/.beads/beads.db
+time=2026-02-24T16:12:11.148+01:00 level=INFO msg="database opened" path=/home/chuck/git/edge-clock/.beads/beads.db backend=sqlite freshness_checking=true
+time=2026-02-24T16:12:11.148+01:00 level=INFO msg="upgrading .beads/.gitignore"
+time=2026-02-24T16:12:11.148+01:00 level=WARN msg="failed to upgrade .gitignore" error="open .beads/.gitignore: no such file or directory"
+time=2026-02-24T16:12:11.152+01:00 level=ERROR msg="repository fingerprint validation failed" error="\nDATABASE MISMATCH DETECTED!\n\nThis database belongs to a different repository:\n  Database repo ID:  bbacbf80\n  Current repo ID:   3a393d2d\n\nThis usually means:\n  1. You copied a .beads directory from another repo (don't do this!)\n  2. Git remote URL changed (run 'bd migrate --update-repo-id')\n  3. Database corruption\n  4. bd was upgraded and URL canonicalization changed\n\n⚠️  CRITICAL: This mismatch can cause beads to incorrectly delete issues during sync!\n   The git-history-backfill mechanism may treat your local issues as deleted\n   because they don't exist in the remote repository's history.\n\nSolutions:\n  - If remote URL changed: bd migrate --update-repo-id\n  - If bd was upgraded: bd migrate --update-repo-id\n  - If wrong database: rm -rf .beads && bd init\n  - If correct database: BEADS_IGNORE_REPO_MISMATCH=1 bd daemon\n    (Warning: This can cause data corruption and unwanted deletions across clones!)\n"
+time=2026-02-24T16:12:21.630+01:00 level=INFO msg="Daemon started (interval: %v, auto-commit: %v, auto-push: %v)" !BADKEY=5s !BADKEY=false !BADKEY=false
+time=2026-02-24T16:12:21.631+01:00 level=INFO msg="using database" path=/home/chuck/git/edge-clock/.beads/beads.db
+time=2026-02-24T16:12:21.698+01:00 level=INFO msg="database opened" path=/home/chuck/git/edge-clock/.beads/beads.db backend=sqlite freshness_checking=true
+time=2026-02-24T16:12:21.698+01:00 level=INFO msg="upgrading .beads/.gitignore"
+time=2026-02-24T16:12:21.698+01:00 level=WARN msg="failed to upgrade .gitignore" error="open .beads/.gitignore: no such file or directory"
+time=2026-02-24T16:12:21.702+01:00 level=INFO msg="Repository fingerprint validated: %s" !BADKEY=3a393d2d
+time=2026-02-24T16:12:21.703+01:00 level=INFO msg="starting RPC server" socket=/home/chuck/git/edge-clock/.beads/bd.sock
+time=2026-02-24T16:12:21.705+01:00 level=INFO msg="RPC server ready (socket listening)"
+time=2026-02-24T16:12:21.710+01:00 level=INFO msg="registered in global registry"
+time=2026-02-24T16:12:21.711+01:00 level=INFO msg="Starting %s..." !BADKEY="sync cycle"
+time=2026-02-24T16:12:21.757+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T16:12:23.463+01:00 level=INFO msg="Pull failed: %v" !BADKEY="git pull failed: exit status 128\nFrom github.com:bogorad/edge-clock\n * branch            dev        -> FETCH_HEAD\nhint: You have divergent branches and need to specify how to reconcile them.\nhint: You can do so by running one of the following commands sometime before\nhint: your next pull:\nhint:\nhint:   git config pull.rebase false  # merge\nhint:   git config pull.rebase true   # rebase\nhint:   git config pull.ff only       # fast-forward only\nhint:\nhint: You can replace \"git config\" with \"git config --global\" to set a default\nhint: preference for all repositories. You can also pass --rebase, --no-rebase,\nhint: or --ff-only on the command line to override the configured default per\nhint: invocation.\nfatal: Need to specify how to reconcile divergent branches.\n"
+time=2026-02-24T16:12:23.463+01:00 level=INFO msg="monitoring parent process" pid=0
+time=2026-02-24T16:12:23.463+01:00 level=INFO msg="using event-driven mode"
+time=2026-02-24T16:12:23.468+01:00 level=INFO msg="Auto-pull disabled: use 'git pull' manually to sync remote changes"
+time=2026-02-24T16:12:25.384+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:12:25.384+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:12:25.435+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:12:25.435+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:12:26.436+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:12:26.441+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:12:26.442+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T16:12:28.189+01:00 level=INFO msg="Pull failed: %v (backoff: %v)" !BADKEY="git pull failed: exit status 128\nFrom github.com:bogorad/edge-clock\n * branch            dev        -> FETCH_HEAD\nhint: You have divergent branches and need to specify how to reconcile them.\nhint: You can do so by running one of the following commands sometime before\nhint: your next pull:\nhint:\nhint:   git config pull.rebase false  # merge\nhint:   git config pull.rebase true   # rebase\nhint:   git config pull.ff only       # fast-forward only\nhint:\nhint: You can replace \"git config\" with \"git config --global\" to set a default\nhint: preference for all repositories. You can also pass --rebase, --no-rebase,\nhint: or --ff-only on the command line to override the configured default per\nhint: invocation.\nfatal: Need to specify how to reconcile divergent branches.\n" !BADKEY=30s
+time=2026-02-24T16:12:33.840+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:12:33.841+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:12:34.841+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:12:34.845+01:00 level=INFO msg="Skipping %s: in backoff period" !BADKEY=auto-import
+time=2026-02-24T16:13:26.911+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-82l
+time=2026-02-24T16:13:26.940+01:00 level=INFO msg="Mutation detected: %s %s" status=edge-clock-rzz
+time=2026-02-24T16:13:27.440+01:00 level=INFO msg="Export triggered by mutation events"
+time=2026-02-24T16:13:27.440+01:00 level=INFO msg="Starting %s..." !BADKEY=export
+time=2026-02-24T16:13:27.471+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:13:27.471+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:13:27.500+01:00 level=INFO msg="Exported to JSONL"
+time=2026-02-24T16:13:27.500+01:00 level=INFO msg="Export complete"
+time=2026-02-24T16:13:28.472+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:13:28.473+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:13:28.473+01:00 level=INFO msg="JSONL content changed, proceeding with %s..." !BADKEY=auto-import
+time=2026-02-24T16:13:28.478+01:00 level=INFO msg="⚠️  WARNING: Uncommitted local changes detected in %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:13:28.478+01:00 level=INFO msg="   Pulling from remote may overwrite local unpushed changes."
+time=2026-02-24T16:13:28.478+01:00 level=INFO msg="   Consider running 'bd sync' to commit and push your changes first."
+time=2026-02-24T16:13:30.245+01:00 level=INFO msg="Pull failed: %v (backoff: %v)" !BADKEY="git pull failed: exit status 128\nFrom github.com:bogorad/edge-clock\n * branch            dev        -> FETCH_HEAD\nhint: You have divergent branches and need to specify how to reconcile them.\nhint: You can do so by running one of the following commands sometime before\nhint: your next pull:\nhint:\nhint:   git config pull.rebase false  # merge\nhint:   git config pull.rebase true   # rebase\nhint:   git config pull.ff only       # fast-forward only\nhint:\nhint: You can replace \"git config\" with \"git config --global\" to set a default\nhint: preference for all repositories. You can also pass --rebase, --no-rebase,\nhint: or --ff-only on the command line to override the configured default per\nhint: invocation.\nfatal: Need to specify how to reconcile divergent branches.\n" !BADKEY=1m0s
+time=2026-02-24T16:13:35.580+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:13:35.580+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:13:35.631+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:13:35.631+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:13:36.633+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:13:36.634+01:00 level=INFO msg="Skipping %s: in backoff period" !BADKEY=auto-import
+time=2026-02-24T16:13:43.684+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:13:43.684+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:13:44.685+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:13:44.689+01:00 level=INFO msg="Skipping %s: in backoff period" !BADKEY=auto-import
+time=2026-02-24T16:15:03.586+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:03.586+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:03.738+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:15:04.739+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:15:04.742+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:15:04.743+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:15:06.245+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:06.245+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:07.247+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:15:07.250+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:15:07.251+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:15:32.851+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:32.851+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:15:32.902+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:15:32.902+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:32.982+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:15:33.033+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:15:33.033+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:33.033+01:00 level=INFO msg="JSONL removed/renamed, re-establishing watch"
+time=2026-02-24T16:15:33.084+01:00 level=INFO msg="Successfully re-established JSONL watch after %v" !BADKEY=50ms
+time=2026-02-24T16:15:33.084+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:33.228+01:00 level=INFO msg="Git ref change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.git/refs/heads/dev.lock
+time=2026-02-24T16:15:34.231+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:15:34.231+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:15:34.232+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import
+time=2026-02-24T16:15:41.640+01:00 level=INFO msg="JSONL file created: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:41.640+01:00 level=INFO msg="File change detected: %s" !BADKEY=/home/chuck/git/edge-clock/.beads/issues.jsonl
+time=2026-02-24T16:15:42.641+01:00 level=INFO msg="Import triggered by file change"
+time=2026-02-24T16:15:42.645+01:00 level=INFO msg="Starting %s..." !BADKEY=auto-import
+time=2026-02-24T16:15:42.646+01:00 level=INFO msg="Skipping %s: JSONL content unchanged" !BADKEY=auto-import

@@ -7,3 +7,7 @@ rust/clock-wasm/src/target/
 node_modules/
 rust/clock-wasm/pkg/
 rust/clock-wasm/target/
+
+# Dolt database files (added by bd init)
+.dolt/
+*.db
