@@ -52,3 +52,14 @@
 # - linear.api-key
 # - github.org
 # - github.repo
+
+dolt.host: "doltsrv.lan"
+
+dolt.port: 3307
+
+dolt.database: "edge_clock"
+
+dolt.user: "root"
+
+
+backup.enabled: false
