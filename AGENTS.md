@@ -1,9 +1,5 @@
 # Agent Instructions
 
-## Serena for context, changes
-
-- Make use of Serena MCP for file searching and editing.
-
 ## HTMX-First Policy
 
 - Implement UI behavior with pure HTMX by default.
@@ -123,6 +119,7 @@ bd sync               # Commit and push beads changes
 <!-- bv-agent-instructions-v1 -->
 
 <!-- BEGIN BEADS INTEGRATION -->
+
 ## Issue Tracking with bd (beads)
 
 **IMPORTANT**: This project uses **bd (beads)** for ALL issue tracking. Do NOT use markdown TODOs, task lists, or other tracking methods.
@@ -228,6 +225,7 @@ For more details, see README.md and docs/QUICKSTART.md.
 7. **Hand off** - Provide context for next session
 
 **CRITICAL RULES:**
+
 - Work is NOT complete until `git push` succeeds
 - NEVER stop before pushing - that leaves work stranded locally
 - NEVER say "ready to push when you are" - YOU must push
