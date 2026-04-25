@@ -1,0 +1,7 @@
+[features]
+memories = true
+
+[mcp_servers.victorialogs]
+command = "npx"
+args = ["-y", "mcp-remote", "http://victorialogs.lan:51428/sse", "--allow-http"]
+
