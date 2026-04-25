@@ -16,12 +16,16 @@
         };
       in
       {
+        packages.wasm-bindgen-cli = pkgs.wasm-bindgen-cli;
+
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             lld # WASM linker
             nodejs_24 # Node.js
             pnpm # Package manager
             rustc # Rust compiler
+            just # Task runner
+            wasm-bindgen-cli # WASM bindgen CLI
             wasm-pack # WASM packager
             wrangler # Cloudflare worker
             zsh # Shell

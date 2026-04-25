@@ -93,6 +93,7 @@ The host adapter in the repository is:
 - Rust/Cargo toolchain
 - Rust target `wasm32-unknown-unknown`
 - `wasm-pack` available on `PATH` (included in the flake dev shell)
+- `wasm-bindgen` available on `PATH` (included in the flake dev shell)
 - `wasm-ld` available on `PATH` (included in the flake dev shell)
 
 If a tool is missing:
@@ -296,8 +297,8 @@ Expected: one `event: clock` frame with a `<time>` payload.
 Check timezone negotiation inputs:
 
 ```bash
-curl -fsS "http://127.0.0.1:5656/?tz=America/New_York" | rg "07\.05\.07"
-curl -fsS "http://127.0.0.1:5656/clock-stream?once=1" -H "Cookie: clock_tz=America%2FNew_York"
+curl -fsS "http://127.0.0.1:5656/?tz=America/New_York" | rg '<time id="clock-time" datetime="[0-9]{2}:[0-9]{2}:[0-9]{2}">[0-9]{2}\.[0-9]{2}\.[0-9]{2}</time>'
+curl -fsS "http://127.0.0.1:5656/clock-stream?once=1" -H "Cookie: clock_tz=America%2FNew_York" | rg '^event: clock'
 ```
 
 If browser timezone detection is unavailable or invalid, no `tz` hint is sent and Rust falls back to `UTC`.

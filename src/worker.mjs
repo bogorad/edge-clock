@@ -142,6 +142,10 @@ const ROUTE_CLOCK_STREAM = 2;
 const ROUTE_STATIC_ASSET = 3;
 const THEME_COOKIE_NAME = "clock_theme";
 
+function currentUnixSeconds() {
+  return BigInt(Math.max(0, Math.floor(Date.now() / 1000)));
+}
+
 // Case-insensitive attribute presence check for Set-Cookie directives.
 function hasCookieAttribute(cookieDirective, attributeName) {
   const attributePattern = new RegExp(`(?:^|;)\\s*${attributeName}(?:=|;|$)`, "i");
@@ -228,7 +232,7 @@ function createSseResponse({ once, signal, timeZone, setCookies, isSecureContext
       const writeEvent = () => {
         // Use host time source for cadence; Rust converts to timezone and formats
         // the payload content.
-        const unixSeconds = Math.max(0, Math.floor(Date.now() / 1000));
+        const unixSeconds = currentUnixSeconds();
         const rawRendered = typed_render_sse(unixSeconds, timeZone ?? "");
         const rendered = parseJson(rawRendered);
         if (!isRenderPayload(rendered)) {
@@ -302,7 +306,7 @@ function createSseResponse({ once, signal, timeZone, setCookies, isSecureContext
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const unixSeconds = Math.max(0, Math.floor(Date.now() / 1000));
+    const unixSeconds = currentUnixSeconds();
     const isSecureContext = url.protocol === "https:";
 
     // Single Rust planner call per request.

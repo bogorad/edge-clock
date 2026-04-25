@@ -152,9 +152,9 @@ fn parse_time_zone(time_zone_value: &str) -> Tz {
 
 // Convert UNIX seconds into timezone-adjusted clock text used by both
 // HTML and SSE rendering paths.
-fn clock_text_at_unix_seconds(unix_seconds: u32, time_zone_value: &str) -> Result<String, &'static str> {
-    let utc_time = DateTime::<Utc>::from_timestamp(unix_seconds as i64, 0)
-        .ok_or("value out of range")?;
+fn clock_text_at_unix_seconds(unix_seconds: u64, time_zone_value: &str) -> Result<String, &'static str> {
+    let unix_seconds_i64 = i64::try_from(unix_seconds).map_err(|_| "value out of range")?;
+    let utc_time = DateTime::<Utc>::from_timestamp(unix_seconds_i64, 0).ok_or("value out of range")?;
     let time_zone = parse_time_zone(time_zone_value);
     let local_time = utc_time.with_timezone(&time_zone);
     format_clock_string(local_time.hour(), local_time.minute(), local_time.second())
@@ -276,7 +276,7 @@ fn render_home_html_response(hour: u32, minute: u32, second: u32, theme_value: &
 
 // Production home renderer that starts from UNIX seconds and timezone.
 fn render_home_html_at_unix_seconds_response(
-    unix_seconds: u32,
+    unix_seconds: u64,
     time_zone_value: &str,
     theme_value: &str,
 ) -> RenderResponse {
@@ -311,7 +311,7 @@ fn render_clock_sse_event_response(hour: u32, minute: u32, second: u32) -> Rende
 
 // Production SSE renderer that starts from UNIX seconds and timezone.
 fn render_clock_sse_event_at_unix_seconds_response(
-    unix_seconds: u32,
+    unix_seconds: u64,
     time_zone_value: &str,
 ) -> RenderResponse {
     match clock_text_at_unix_seconds(unix_seconds, time_zone_value) {
@@ -585,7 +585,7 @@ fn build_http_response_plan(
     cookie: &str,
     header_time_zone: Option<&str>,
     hx_request: Option<&str>,
-    unix_seconds: u32,
+    unix_seconds: u64,
 ) -> HttpResponsePlan {
     let route = route_from(method.as_bytes(), path.as_bytes());
     let context = resolve_request_context_values(query, cookie, header_time_zone, hx_request);
@@ -710,7 +710,7 @@ pub fn typed_resolve_request_context(
 
 // Export home-page render response as JSON from UNIX seconds + optional inputs.
 #[wasm_bindgen]
-pub fn typed_render_home(unix_seconds: u32, time_zone: Option<String>, theme: Option<String>) -> String {
+pub fn typed_render_home(unix_seconds: u64, time_zone: Option<String>, theme: Option<String>) -> String {
     let response = render_home_html_at_unix_seconds_response(
         unix_seconds,
         time_zone.as_deref().unwrap_or("UTC"),
@@ -722,7 +722,7 @@ pub fn typed_render_home(unix_seconds: u32, time_zone: Option<String>, theme: Op
 
 // Export one SSE event payload as JSON; JS host owns stream cadence/lifecycle.
 #[wasm_bindgen]
-pub fn typed_render_sse(unix_seconds: u32, time_zone: Option<String>) -> String {
+pub fn typed_render_sse(unix_seconds: u64, time_zone: Option<String>) -> String {
     let response = render_clock_sse_event_at_unix_seconds_response(
         unix_seconds,
         time_zone.as_deref().unwrap_or("UTC"),
@@ -747,7 +747,7 @@ pub fn typed_handle_http(
     cookie: Option<String>,
     header_time_zone: Option<String>,
     hx_request: Option<String>,
-    unix_seconds: u32,
+    unix_seconds: u64,
 ) -> String {
     let plan = build_http_response_plan(
         method,
