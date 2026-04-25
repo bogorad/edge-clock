@@ -1,2 +1,3 @@
-dolt.database: "edge_clock"
+export.git-add: true
 
+export.auto: true

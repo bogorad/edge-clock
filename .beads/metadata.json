@@ -1,10 +1,6 @@
 {
   "database": "dolt",
   "backend": "dolt",
-  "dolt_mode": "server",
-  "dolt_server_host": "doltsrv.lan",
-  "dolt_server_port": 3307,
-  "dolt_server_user": "root",
-  "dolt_database": "edge_clock",
+  "dolt_mode": "direct",
   "project_id": "d0056e8d-3a27-4c39-b58d-f39a7245717e"
 }
