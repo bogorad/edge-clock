@@ -5,5 +5,3 @@ dolt.user: "root"
 backup.enabled: false
 dolt.auto-push: false
 export.auto: false
-
-sync.remote: "git+ssh://git@github.com/bogorad/edge-clock.git"
