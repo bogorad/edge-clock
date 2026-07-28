@@ -17,3 +17,6 @@ rust/clock-wasm/target/
 .beads/dolt-config.log
 tmp/
 .tmp/
+
+# Beads / Dolt files (added by bd init)
+.beads/proxieddb/

@@ -1,3 +1,9 @@
-export.git-add: true
+dolt.database: "edge_clock"
+dolt.host: "doltsrv.lan"
+dolt.port: 3307
+dolt.user: "root"
+backup.enabled: false
+dolt.auto-push: false
+export.auto: false
 
-export.auto: true
+sync.remote: "git+ssh://git@github.com/bogorad/edge-clock.git"
