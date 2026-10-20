@@ -1,70 +1,9 @@
-// Import raw bindgen artifacts directly.
-// Why: Worker runtimes may expose the wasm module in different shapes, so we
-// do explicit resolution/init here instead of relying on generated wrapper
-// assumptions.
-import * as wasmModule from "../rust/clock-wasm/pkg/clock_wasm_bg.wasm";
-import * as bindgen from "../rust/clock-wasm/pkg/clock_wasm_bg.js";
-
-// Minimal signature check for a usable wasm-bindgen exports object.
-// Why these symbols: bindgen wrappers need allocator functions to bridge JS
-// strings and buffers across wasm memory.
-function isWasmExports(value) {
-  return (
-    Boolean(value) &&
-    typeof value.__wbindgen_malloc === "function" &&
-    typeof value.__wbindgen_realloc === "function"
-  );
-}
-
-// Normalize any runtime-provided wasm module shape into plain exports.
-// Why: different bundler/runtime combinations can provide direct exports,
-// nested default exports, pre-instantiated modules, or raw WebAssembly.Module.
-function resolveWasmExports(moduleLike) {
-  const directExports = [
-    moduleLike,
-    moduleLike?.default,
-    moduleLike?.instance?.exports,
-    moduleLike?.default?.instance?.exports,
-  ].find(isWasmExports);
-
-  if (directExports) {
-    return directExports;
-  }
-
-  const compiledModule = [moduleLike, moduleLike?.default, moduleLike?.module].find(
-    (value) => value instanceof WebAssembly.Module,
-  );
-
-  if (!compiledModule) {
-    throw new TypeError("Unable to initialize wasm module exports");
-  }
-
-  const importModules = new Set(
-    WebAssembly.Module.imports(compiledModule).map((entry) => entry.module),
-  );
-  const importObject = {};
-  for (const moduleName of importModules) {
-    importObject[moduleName] = bindgen;
-  }
-
-  const { exports } = new WebAssembly.Instance(compiledModule, importObject);
-
-  if (!isWasmExports(exports)) {
-    throw new TypeError("Wasm exports missing bindgen allocation symbols");
-  }
-
-  return exports;
-}
-
-// Wire resolved wasm exports into bindgen before any boundary function calls.
-// `__wbindgen_start` is optional; call only when emitted by this build.
-const wasmExports = resolveWasmExports(wasmModule);
-bindgen.__wbg_set_wasm(wasmExports);
-if (typeof wasmExports.__wbindgen_start === "function") {
-  wasmExports.__wbindgen_start();
-}
-
-const { typed_handle_http, typed_render_sse } = bindgen;
+// Emscripten initializes the supported source-phase module before these exports
+// are used. Keep the Rust planner boundary and Worker HTTP transport unchanged.
+import {
+  typed_handle_http,
+  typed_render_sse,
+} from "../rust/clock-wasm/pkg/clock_wasm.js";
 
 // Shared validator for nullable string plan fields coming from Rust JSON.
 function isNullableString(value) {

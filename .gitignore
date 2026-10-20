@@ -1,6 +1,7 @@
 .beads/export-state/
 .bv/
 .direnv/
+.cache/emscripten/
 rust/clock-wasm/src/target/
 .serena/
 .wrangler/

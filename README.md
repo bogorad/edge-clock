@@ -1,18 +1,23 @@
 # Rust-First Server Clock (HTMX + SSE)
 
-A server-rendered clock app that displays user-local time as `HH.MM.SS` (24-hour format), with Rust/WASM owning routing, request-context resolution, and non-stream HTTP response planning (`status`, `body`, `content-type`, `location`, `set-cookie`) via `typed_handle_http`; the Worker JavaScript host remains a thin runtime adapter.
+A server-rendered clock app that displays user-local time as `HH.MM.SS` (24-hour format). Rust owns routing, request context, and HTTP response planning through `typed_handle_http`. A thin Cloudflare Worker adapter handles HTTP objects, assets, and SSE transport.
+
+Rust builds with `wasm32-unknown-emscripten`. This is Cloudflare's experimental Emscripten integration for Rust Workers. It still produces WebAssembly. The migration replaces the old `wasm32-unknown-unknown` build and custom module bootstrap; it does not change the browser UI model.
 
 ## Documentation Scope
 
 - Canonical project documentation is maintained in `README.md` and `AGENTS.md`.
 - `docs/bindgen/` is kept in-repo as reference guidance for Rust/WASM interop work.
 - Keep `README.md` as the runtime source of truth; update `docs/bindgen/` when bindgen guidance changes.
+- [The knowledge map](docs/knowledge/README.md) links source ownership and recovery boundaries.
+- [The Emscripten contract](docs/bindgen/emscripten.md) defines the binding boundary.
+- Activity notes for the migration are in `docs/activity/`; Beads owns task state.
 
 ## Stack at a Glance
 
 - **Build orchestration:** `pnpm` scripts and `just` targets
 - **Server host runtime:** Cloudflare Workers via Wrangler
-- **Core app logic:** Rust compiled to `wasm32-unknown-unknown`
+- **Core app logic:** Rust compiled to `wasm32-unknown-emscripten`
 - **Client update mechanism:** HTMX + SSE extension from pinned local static assets
 - **Rendering model:** Server-side only
 
@@ -20,15 +25,17 @@ A server-rendered clock app that displays user-local time as `HH.MM.SS` (24-hour
 
 ### Build layer
 
-- `pnpm run build:wasm` compiles Rust crate `rust/clock-wasm` to `clock_wasm.wasm`.
-- Link step uses `wasm-ld` from `PATH` (provided by the flake dev shell).
+- `pnpm run build:worker` compiles the Rust binary in `rust/clock-wasm`.
+- The project dev shell supplies the pinned Rust target, Emscripten, and matching wasm-bindgen CLI.
+- Emscripten invokes wasm-bindgen during linking and emits `clock_wasm.js` plus `clock_wasm.wasm` in `rust/clock-wasm/pkg/`.
+- The Worker imports the generated named exports. There is no separate bindgen generation step or handwritten WebAssembly instantiation.
 
 ### Host runtime (V8 / JavaScript)
 
 - Worker host (`src/worker.mjs`) loads wasm and stays host-only:
   - pass raw request inputs into Rust `typed_handle_http` for non-stream HTTP planning
   - emit `Response` objects from Rust planner outputs (`status`, `body`, `content_type`, `location`, `set_cookies`)
-  - serve `/static/*` through the Cloudflare `ASSETS` adapter
+  - serve `/static/*` through the Cloudflare `ASSETS` adapter, including its canonical redirects and missing-file responses
   - manage SSE transport lifecycle (open/close/timer/cancel) for `/clock-stream`
 
 ### Rust/WASM runtime
@@ -40,7 +47,7 @@ A server-rendered clock app that displays user-local time as `HH.MM.SS` (24-hour
   - strict clock formatting contract (`HH.MM.SS`)
   - home HTML generation from static `public/index.html` template
   - SSE payload generation via `typed_render_sse`
-  - not-found payload generation
+  - non-asset not-found payload generation
   - non-stream HTTP response planning via `typed_handle_http`
 
 ### Browser runtime
@@ -60,7 +67,7 @@ The host adapter in the repository is:
 
 1. **Worker adapter** (`src/worker.mjs`)
    - Wrangler/Cloudflare Worker runtime entrypoint.
-   - Imports `.wasm` module directly and serves `/static/*` via `env.ASSETS`.
+   - Imports the generated Emscripten JavaScript module and serves `/static/*` via `env.ASSETS`.
    - Emits non-stream HTTP responses from Rust `typed_handle_http` plans.
    - Owns SSE stream transport lifecycle for `/clock-stream`.
 
@@ -89,23 +96,25 @@ The host adapter in the repository is:
 
 ## Prerequisites
 
-- Node.js + pnpm
-- Rust/Cargo toolchain
-- Rust target `wasm32-unknown-unknown`
-- `wasm-pack` available on `PATH` (included in the flake dev shell)
-- `wasm-bindgen` available on `PATH` (included in the flake dev shell)
-- `wasm-ld` available on `PATH` (included in the flake dev shell)
+- Use the committed Nix flake and lock file.
+- Build host: `x86_64-linux`. The matching LLVM SDK binary is pinned for this platform.
+- The shell supplies Node.js, pnpm, Wrangler, Rust with its Emscripten standard library, Emscripten 6.0.10, and wasm-bindgen 0.2.129.
+- The wasm-bindgen crate and CLI versions must match.
+- Deployment credentials remain encrypted in `secrets.yaml`.
 
-If a tool is missing:
+Enter the declared shell:
 
 ```bash
-nix run nixpkgs#<tool> -- <args>
+nix develop --command bash
 ```
+
+Do not substitute global installs or a package runner for the pinned tools.
 
 ## Quick Start
 
 ```bash
 pnpm install
+pnpm run build:worker
 just dev 5656
 ```
 
@@ -118,8 +127,6 @@ Open `http://localhost:5656`.
 ```bash
 just --list
 just install
-just wasm
-just rust-test
 just test
 just test-live 5656
 just dev 5656
@@ -132,14 +139,12 @@ just wrangler-deploy
 ### pnpm scripts
 
 ```bash
-pnpm run build:wasm
-pnpm run test:rust
-pnpm run test:rust:wasm-boundary
+pnpm run build:worker
 pnpm test
-pnpm run dev
+just dev 5656
 ```
 
-`pnpm run dev` uses Wrangler defaults; for protocol-compliant local debugging and verification use `just dev 5656`.
+Use `just dev 5656` for local debugging. If port `5656` is occupied, stop; do not kill that server.
 
 ## Cloudflare Deployment
 
@@ -147,14 +152,35 @@ pnpm run dev
 - Worker entrypoint: `src/worker.mjs`
 - Route target: `clock.abc-p.com/*`
 - Static assets: `public/` via Wrangler assets binding (`ASSETS`)
+- The Emscripten loader uses `new_module_registry` and `nodejs_compat`; the manifest owns the compatibility date and flags.
 
-Secrets are loaded transiently for deploy commands via `scripts/with-cloudflare-env.sh`, which runs:
+Run deployment commands inside the project dev shell:
 
 ```bash
-sops -d secrets.yaml | yq ... -> export CLOUDFLARE_* in-process only
+just wrangler-deploy-dry-run
+scripts/with-cloudflare-env.sh wrangler deployments list
+just wrangler-deploy
 ```
 
-No secrets are stored in repository files.
+Record the current version ID before publishing. The dry run checks packaging;
+it does not prove a successful deployment. Deployment must follow the live local
+HTTP gate. Record the provider's deployment result in Beads or activity.
+
+The wrapper supplies credentials transiently to the deployment command.
+Never print credentials or write decrypted values to disk. The repository
+contains encrypted configuration only.
+
+For a failed rollout, redeploy the recorded prior Worker version with Wrangler's
+rollback command:
+
+```bash
+scripts/with-cloudflare-env.sh wrangler rollback <version-id> --message "Restore the prior clock release"
+```
+
+Keep the source commit and Cloudflare version ID together in
+the release evidence. A Git push and a Worker deployment are separate actions.
+Cloudflare's [rollback documentation](https://developers.cloudflare.com/workers/configuration/versions-and-deployments/rollbacks/)
+defines the version and binding limits.
 
 ## Endpoints
 
@@ -202,8 +228,9 @@ JavaScript remains only as Worker runtime glue around Rust/WASM planning and ren
 3. **SSE transport lifecycle (`src/worker.mjs`)**
    - Required to own stream transport concerns (open/close/timer/cancel) and write `text/event-stream` frames.
 
-4. **WASM boundary glue (`src/worker.mjs`)**
-   - Required to initialize wasm-bindgen exports and exchange JSON payload strings across the JS <-> WASM boundary.
+4. **Generated Emscripten boundary**
+   - Emscripten initializes the module and exposes wasm-bindgen exports.
+   - The Worker exchanges the existing JSON payload strings with Rust; it does not instantiate a second module.
 
 5. **Browser timezone bootstrap (`public/timezone-bootstrap.js`)**
    - Explicitly allowed exception: browser timezone detection/hinting for first-request localization.
@@ -229,12 +256,14 @@ Timezone source precedence for SSE rendering:
 
 ## Testing
 
-- Rust tests: `rust/clock-wasm/src/lib.rs`; wasm boundary smoke tests: `rust/clock-wasm/tests/boundary_wasm.rs`.
-- `pnpm test` runs wasm build, Rust unit tests, executed wasm boundary tests (`wasm-pack test --node`), then live endpoint checks via `just test-live 5656`.
-- `just test-live` first runs `just verify-dev-start 5656 8` to confirm `just dev` starts and binds the port before the full live assertions.
-- Live checks assert HTTP semantics for status/content-type/location/set-cookie, static asset handling, and SSE transport behavior via `just verify-theme-redirect 5656` and `just verify-worker-flows 5656`.
+- `pnpm test` runs the live local HTTP gate on explicit port `5656`.
+- The test harness starts the app through `just dev 5656`, waits for a successful home response, and checks real endpoints.
+- Checks cover HTTP status, content type, redirects, theme state, cookie directives, timezone precedence, static assets, and SSE behavior.
+- Each failed request or assertion fails the command. Cleanup does not replace the failure status.
+- The harness monitors its server log and stops only its own server process tree. It refuses to start if the port is occupied.
+- Existing Rust unit and boundary-test sources remain reference material. They are not part of the default debug gate. `cargo test`, `cargo check`, `cargo clippy`, and JavaScript test flows require the authorization stated in `AGENTS.md`.
 
-Run all gates:
+Run the live HTTP gate:
 
 ```bash
 pnpm test
@@ -254,8 +283,9 @@ just test-live 5656
 |  `- worker.mjs                    # Wrangler/Cloudflare Worker entrypoint
 |- rust/clock-wasm/
 |  |- Cargo.toml
-|  |- src/lib.rs                    # Rust planner/router + chrono/chrono-tz clock renderer + HTML/SSE exports
-|  `- tests/boundary_wasm.rs        # wasm-bindgen boundary smoke tests
+|  |- src/lib.rs                    # Rust planner, renderer, and wasm-bindgen exports
+|  |- src/main.rs                   # Emscripten binary entrypoint
+|  `- tests/boundary_wasm.rs         # existing reference tests; not the default live gate
 |- public/
 |  |- favicon.ico
 |  |- index.html
@@ -264,7 +294,8 @@ just test-live 5656
 |  `- vendor/htmx.org@1.9.12/       # pinned local HTMX + SSE extension assets
 |- docs/bindgen/
 |  |- bindgen.md
-|  `- chapters.md
+|  |- chapters.md
+|  `- emscripten.md
 |- scripts/
 |  `- with-cloudflare-env.sh
 |- wrangler.toml
@@ -274,13 +305,15 @@ just test-live 5656
 
 ## Troubleshooting
 
-### `linker 'lld' not found`
+### Missing or mismatched compiler tools
 
-Build requires `wasm-ld` on `PATH`. Run `nix develop` to use the flake-provided `lld` toolchain.
+Enter the project dev shell. Check the declared Emscripten and wasm-bindgen
+versions before rebuilding. Do not fall back to an older bindgen CLI.
 
 ### Rust target missing
 
-Install `wasm32-unknown-unknown` for the active Rust toolchain.
+The project toolchain must provide the `wasm32-unknown-emscripten` standard
+library for its Rust compiler. A host-only Rust compiler is insufficient.
 
 ### SSE not updating
 

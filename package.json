@@ -9,10 +9,10 @@
     "pnpm": "10.28.0"
   },
   "scripts": {
-    "build:wasm": "CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_LINKER=wasm-ld cargo build --manifest-path rust/clock-wasm/Cargo.toml --target wasm32-unknown-unknown --release && (command -v wasm-bindgen >/dev/null 2>&1 && wasm-bindgen --target bundler --out-dir rust/clock-wasm/pkg --out-name clock_wasm rust/clock-wasm/target/wasm32-unknown-unknown/release/clock_wasm.wasm || nix run .#wasm-bindgen-cli -- --target bundler --out-dir rust/clock-wasm/pkg --out-name clock_wasm rust/clock-wasm/target/wasm32-unknown-unknown/release/clock_wasm.wasm)",
+    "build:worker": "bash scripts/build-worker.sh",
+    "build:wasm": "pnpm run build:worker",
     "test:rust": "cargo test --manifest-path rust/clock-wasm/Cargo.toml",
-    "test:rust:wasm-boundary": "wasm-pack test --node rust/clock-wasm",
-    "test": "pnpm run build:wasm && pnpm run test:rust && pnpm run test:rust:wasm-boundary && just test-live",
+    "test": "just test-live",
     "dev": "wrangler dev --local --live-reload --show-interactive-dev-session=true"
   }
 }

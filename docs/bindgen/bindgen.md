@@ -2,6 +2,12 @@
 
 This is an “agent playbook” for generating *correct, maintainable* Rust↔JS glue with `wasm-bindgen`, `js-sys`, and `web-sys`.
 
+For this project, use the [Emscripten build contract](emscripten.md).
+It takes precedence over the generic `cdylib`, bundler, browser, and test
+examples below. The runtime and commands are defined in [README.md](../../README.md)
+and the build manifests. Browser UI behavior remains HTMX-only under
+[AGENTS.md](../../AGENTS.md).
+
 ---
 
 ## 0) Mental model (don’t skip)
@@ -22,12 +28,15 @@ Common `--target` values:
 - `deno`: Deno-friendly output.
 - an experimental Node ESM mode exists.
 
-**Agent rule:** Every codegen task must state the intended target(s). If it’s not specified, assume `bundler` (modern front-end tooling).
+**Agent rule:** Every codegen task must state the intended target. This project
+uses `wasm32-unknown-emscripten`, with bindgen invoked by the Emscripten linker.
+Do not substitute the standalone `--target bundler` workflow.
 
 ---
 
 ## 2) Project skeleton (Cargo)
-Minimum for a library crate:
+Generic library example for the older `wasm32-unknown-unknown` workflow.
+This is not the project skeleton; the Emscripten target requires a binary:
 
 ```toml
 [lib]
@@ -53,7 +62,7 @@ serde-wasm-bindgen = "0.4"
 Crossing JS↔Rust is not free. Prefer:
 - fewer calls with richer payloads (structs, arrays, serialized objects),
 - compute-heavy work in Rust,
-- UI/event-heavy work in JS (calling into Rust when needed).
+- host transport work in the Worker adapter, with UI behavior in server-rendered HTMX.
 
 ### Prefer stable-ish boundary types
 Most robust boundary types:
@@ -305,6 +314,11 @@ Use `js_sys::Iterator` (and `try_iter`) to iterate JS iterables. Yields `Result<
 ---
 
 ## 14) Testing rules (wasm-bindgen-test)
+These are upstream harness examples, not the project's debug procedure.
+Use the live HTTP gate in [README.md](../../README.md). Do not run these
+code-level or JavaScript test flows without the authorization required by
+[AGENTS.md](../../AGENTS.md).
+
 - Add `wasm-bindgen-test` under `[dev-dependencies]`.
 - Tests must live at crate root or in `pub mod` (not inside private modules).
 - Use `wasm-pack test --node/--chrome/--firefox/...` or environment variables to select runner context.

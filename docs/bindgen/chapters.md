@@ -2,6 +2,11 @@
 
 Source book: https://wasm-bindgen.github.io/wasm-bindgen/ (same content is also mirrored at https://rustwasm.github.io/docs/wasm-bindgen/)
 
+This is background reference material. The project uses the
+[Emscripten build contract](emscripten.md). Its runtime commands and validation
+rules are in [README.md](../../README.md) and [AGENTS.md](../../AGENTS.md).
+The generic browser and test examples below do not authorize those flows here.
+
 ---
 
 ## Introduction
@@ -149,7 +154,10 @@ Covers `wasm-bindgen` CLI usage and key flags (notably output targets, TypeScrip
 Size strategies at a high level: make fewer boundary calls, enable size-oriented Rust settings, and apply wasm post-processing (e.g., `wasm-opt`) where appropriate.
 
 ### 2.13. Supported Rust Targets
-`wasm-bindgen` primarily targets `wasm32-unknown-unknown` and JS host environments (browser, Node, Deno, workers).
+`wasm-bindgen` supports `wasm32-unknown-unknown` and the experimental
+`wasm32-unknown-emscripten` target used by this project. Emscripten links a Rust
+binary and invokes bindgen during linking. See the
+[versioned upstream guide](https://github.com/wasm-bindgen/wasm-bindgen/blob/0.2.129/guide/src/reference/emscripten.md).
 
 ### 2.14. Supported Browsers
 High-level “what you need”: WebAssembly support, JS features required by the generated glue (typed arrays, modules depending on target).
