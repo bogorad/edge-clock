@@ -191,7 +191,7 @@ Returns fully server-rendered HTML including:
 - semantic `<time id="clock-time" ...>`
 - HTMX SSE attributes
 - HTMX theme-toggle form (`POST /theme?theme=...`)
-- Rust/WASM indicator text
+- Rust/emscripten labels linked to the Cloudflare Emscripten article
 - timezone bootstrap script (`/static/timezone-bootstrap.js`)
 
 Optional timezone hints:

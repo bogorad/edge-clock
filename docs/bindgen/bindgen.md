@@ -17,41 +17,46 @@ and the build manifests. Browser UI behavior remains HTMX-only under
 
 ---
 
-## 1) Choose your build + runtime target first
-`wasm-bindgen` can generate different JS wrappers depending on where you’ll run them.
+## 1) Project build and runtime target
 
-Common `--target` values:
-- `bundler` (default): ESM intended for bundlers (webpack/rollup/vite).
-- `web`: native ESM for browsers without bundling.
-- `nodejs`: CommonJS-ish Node bindings.
-- `no-modules`: attaches exports to a global (legacy, but sometimes useful).
-- `deno`: Deno-friendly output.
-- an experimental Node ESM mode exists.
+The Rust target is `wasm32-unknown-emscripten`. Run `pnpm run build:worker`
+inside the pinned project dev shell. The
+[build script](../../scripts/build-worker.sh) compiles the Rust binary and
+configures Emscripten to invoke wasm-bindgen during linking.
 
-**Agent rule:** Every codegen task must state the intended target. This project
-uses `wasm32-unknown-emscripten`, with bindgen invoked by the Emscripten linker.
-Do not substitute the standalone `--target bundler` workflow.
+The output pair is `clock_wasm.js` and `clock_wasm.wasm` in
+`rust/clock-wasm/pkg/`. The Worker imports the generated JavaScript exports;
+the generated module loads its WebAssembly artifact. There is no separate
+standalone bindgen `--target` command or handwritten instantiation step.
+
+The crate and CLI must use matching wasm-bindgen versions. The flake, lock
+files, and build script own the exact compiler and linker settings.
 
 ---
 
 ## 2) Project skeleton (Cargo)
-Generic library example for the older `wasm32-unknown-unknown` workflow.
-This is not the project skeleton; the Emscripten target requires a binary:
+The current [manifest](../../rust/clock-wasm/Cargo.toml) retains the library
+as an `rlib`. These are its relevant declarations:
 
 ```toml
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["rlib"]
 
 [dependencies]
-wasm-bindgen = "0.2"
-
-# Optional but common:
-js-sys = "0.3"
-web-sys = { version = "0.3", features = [] } # add features you use
-wasm-bindgen-futures = "0.4"                 # async/promise glue
-serde = { version = "1", features = ["derive"] }
-serde-wasm-bindgen = "0.4"
+wasm-bindgen = "=0.2.129"
 ```
+
+Cargo discovers the binary from
+[`src/main.rs`](../../rust/clock-wasm/src/main.rs):
+
+```rust
+use clock_wasm as _;
+
+fn main() {}
+```
+
+This entrypoint links the existing library exports into the Emscripten binary.
+The application remains in `src/lib.rs`; it is not a `cdylib` side module.
 
 **Agent rule:** If you use any `web_sys::Type` or method, include the needed `web-sys` cargo features explicitly.
 
@@ -327,7 +332,7 @@ code-level or JavaScript test flows without the authorization required by
 ---
 
 ## 15) Final “agent checklist” before emitting code
-1. Target decided (`bundler` / `web` / `nodejs` / `no-modules` / `deno`).
+1. The project builds a `wasm32-unknown-emscripten` binary with matching bindgen crate and CLI versions.
 2. `Cargo.toml` includes **all** required deps and `web-sys` features.
 3. Every JS import has correct attributes (`module`, `js_namespace`, `method`, `getter/setter`, `catch`, etc.).
 4. Boundary types are supported; `Result` is used where exceptions are expected.
@@ -335,3 +340,4 @@ code-level or JavaScript test flows without the authorization required by
 6. Async: uses `JsFuture`/`future_to_promise` shims.
 7. Any typed-array views are not retained across invalid lifetimes.
 8. If TS output matters: `js_name`, `typescript_custom_section`, and `skip_typescript` are applied deliberately.
+9. Validate the generated Worker through the live HTTP gate on explicit port `5656`, as defined in the README.

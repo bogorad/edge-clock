@@ -10,7 +10,11 @@ The generic browser and test examples below do not authorize those flows here.
 ---
 
 ## Introduction
-`wasm-bindgen` is a Rust crate + CLI that generates the “glue” needed for rich, ergonomic interop between WebAssembly (`wasm32-unknown-unknown`) and JavaScript: strings, objects, classes, closures, and more—rather than only integers/floats.
+`wasm-bindgen` is a Rust crate and CLI for exchanging strings, objects, classes,
+and closures between Rust WebAssembly and JavaScript. This project uses its
+experimental `wasm32-unknown-emscripten` integration, where the Emscripten
+linker invokes bindgen. The general examples below also cover the older
+`wasm32-unknown-unknown` workflow.
 
 ---
 
@@ -286,6 +290,11 @@ Unstable WebIDL-based APIs are gated behind `cfg(web_sys_unstable_apis)` and may
 ---
 
 ## 4. Testing with wasm-bindgen-test
+
+This section summarizes the upstream harness. Edge-clock uses the live local
+HTTP gate documented in the README. These examples are not project test
+commands, and no CI workflow is configured.
+
 ### 4. Testing with wasm-bindgen-test (index)
 An (experimental) test harness to run Rust tests compiled to wasm in Node or browsers.
 
